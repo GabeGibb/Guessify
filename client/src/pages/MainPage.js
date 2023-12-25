@@ -1,13 +1,12 @@
 
 function MainPage() {
-  return (
-    <div>
-      <a href='other' >other</a>
-      <h1 className="text-3xl font-bold underline">
-        TEST TAILWIND
-      </h1>
-    </div>
-  );
+    
+
+    return (
+        <div>
+            <a href="http://localhost:1323/login">LOGIN TO SPOTIFY</a>
+        </div>
+    );
 }
 
 export default MainPage;
