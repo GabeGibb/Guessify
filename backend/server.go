@@ -19,7 +19,7 @@ var (
 		ClientID:     "fa88e2d1111a4e97bcd60671117fc068",
 		ClientSecret: "7ebd8fe4811a49e4842b19e13e1ba391",
 		RedirectURL:  "http://localhost:1323/callback",
-		Scopes:       []string{"user-read-private", "user-read-email"},
+		Scopes:       []string{"user-read-private", "user-read-email", "user-top-read", "user-library-read"},
 		Endpoint: oauth2.Endpoint{
 			AuthURL:  "https://accounts.spotify.com/authorize",
 			TokenURL: "https://accounts.spotify.com/api/token",
@@ -33,7 +33,7 @@ func main() {
 
 	e.Use(session.Middleware(store))
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins:     []string{"http://localhost:3000", "https://accounts.spotify.com"},
+		AllowOrigins:     []string{"http://localhost:3000"},
 		AllowCredentials: true,
 	}))
 
@@ -83,38 +83,30 @@ func token(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]string{"access_token": token.(string)})
 }
 
-func getTopSongs(c echo.Context) error {
+func getSpotify(c echo.Context, url string) error {
 	sess, _ := session.Get("session", c)
 	token := sess.Values["token"].(string)
 
 	// Create a new request
-	req, err := http.NewRequest("GET", "https://api.spotify.com/v1/recommendations/available-genre-seeds", nil)
-	if err != nil {
-		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to create request: %s", err.Error()))
-	}
+	req, _ := http.NewRequest("GET", url, nil)
+
 	// Add the Authorization header to the request
 	req.Header.Add("Authorization", "Bearer "+token)
 
 	// Send the request
 	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to get top songs: %s", err.Error()))
-	}
-	defer resp.Body.Close()
+	resp, _ := client.Do(req)
 
 	// Read the response body
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to read response body: %s", err.Error()))
-	}
+	body, _ := ioutil.ReadAll(resp.Body)
 
 	// Parse the JSON response
 	var result map[string]interface{}
-	err = json.Unmarshal(body, &result)
-	if err != nil {
-		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to parse JSON: %s", err.Error()))
-	}
+	json.Unmarshal(body, &result)
 
 	return c.JSON(http.StatusOK, result)
+}
+
+func getTopSongs(c echo.Context) error {
+	return getSpotify(c, "https://api.spotify.com/v1/me/tracks?limit=50")
 }
