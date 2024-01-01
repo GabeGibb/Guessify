@@ -86,7 +86,7 @@ function GamePage() {
     
     return (
         <div>
-            <h1>{score}</h1> {/* Display the score */}
+            <h1>Score: {score}</h1> {/* Display the score */}
             <MysterySong song={mysterySong} />
             <div className='flex'>
                 {songOptions.map((song) => (

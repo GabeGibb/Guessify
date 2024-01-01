@@ -8,11 +8,10 @@ const MysterySong = ({ song }) => {
     };
 
     return (
-        <div onClick={handleClick} className='flex'>
+        <button onClick={handleClick} className='flex'>
             {isPlaying ? 'Pause' : 'Play'}
-            <h1>PLAY</h1>
             {isPlaying && <audio src={song.preview_url} autoPlay />}
-        </div>
+        </button>
     );
 };
 
