@@ -20,27 +20,33 @@ function GamePage() {
         let offset = 0;
         let songs = [];
         let count = 0;
-        // while (true){
+        while (count < 100) {
             const response = await fetch('http://localhost:1323/top-songs?offset=' + offset, {
                 method: 'GET',
-                credentials: 'include', 
+                credentials: 'include',
             });
 
             const data = await response.json();
-            console.log('Songs:', data.items);
-            if (offset + 50 > data.total){
-                offset = data.total - 50;
-            }else{
+            songs.push(...data.items);
+            
+            if (offset + 50 > data.total) {
+                offset += data.total - 50;
+            } else {
                 offset += 50;
             }
-            songs.push(data.items);
-            count += offset;
-            // if (count >= data.total){
-            //     break;
-            // }
-            // console.log(count)
-        // }
-        setSongs(data.items);
+            
+            count += data.items.length;
+            if (count >= data.total) {
+                break;
+            }
+            console.log(count);
+        }
+
+        // Remove songs with null preview URL
+        console.log(songs)
+        songs = songs.filter((song) => song.track.preview_url !== null);
+        setSongs(songs);
+        console.log(songs);
     };
 
     useEffect(() => {
@@ -58,6 +64,7 @@ function GamePage() {
         let randomSong = allSongs[Math.floor(Math.random() * allSongs.length)];
         setMysterySong(randomSong.track);
         answer = randomSong.track;
+        console.log(answer)
         randomizeSongOptions();
     };
     
@@ -80,6 +87,8 @@ function GamePage() {
     function handleOptionClick(song) {
         if (song === mysterySong) {
             setScore(score + 1); // Increase score by 1
+        }else{
+            setScore(0); 
         }
         handleSongClick();
     }
