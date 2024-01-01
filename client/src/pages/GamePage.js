@@ -39,14 +39,13 @@ function GamePage() {
             if (count >= data.total) {
                 break;
             }
-            console.log(count);
         }
 
         // Remove songs with null preview URL
         console.log(songs)
         songs = songs.filter((song) => song.track.preview_url !== null);
         setSongs(songs);
-        console.log(songs);
+
     };
 
     useEffect(() => {
@@ -91,6 +90,10 @@ function GamePage() {
             setScore(0); 
         }
         handleSongClick();
+    }
+
+    if (allSongs.length <= 0) {
+        return <div>Loading...</div>;
     }
     
     return (
