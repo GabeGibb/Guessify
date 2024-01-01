@@ -8,7 +8,7 @@ const Song = ({ song }) => {
     };
 
     return (
-        <div onClick={handleClick} className='flex'>
+        <div onClick={handleClick} className='flex-col'>
             <h3>{song.name}</h3>
             <li className='flex'>{song.artists.map(a => (<ul key={a.name}>{a.name}</ul>))}</li>
         </div>

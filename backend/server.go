@@ -7,6 +7,8 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"strconv"
+
 	"github.com/gorilla/sessions"
 	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
@@ -108,5 +110,16 @@ func getSpotify(c echo.Context, url string) error {
 }
 
 func getTopSongs(c echo.Context) error {
-	return getSpotify(c, "https://api.spotify.com/v1/me/tracks?limit=50")
+	offsetStr := c.QueryParam("offset")
+	offset, err := strconv.Atoi(offsetStr)
+	if err != nil {
+		// Handle error
+	}
+
+	url := fmt.Sprintf("https://api.spotify.com/v1/me/tracks?limit=50&offset=%d", offset)
+	return getSpotify(c, url)
 }
+
+// func getTopSongs(c echo.Context) error {
+// 	return getSpotify(c, "https://api.spotify.com/v1/me/tracks?limit=50")
+// }

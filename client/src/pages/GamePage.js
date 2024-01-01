@@ -2,41 +2,99 @@ import React, { useState, useEffect } from 'react';
 import Song from '../components/Song';
 import MysterySong from '../components/MysterySong';
 
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
 function GamePage() {
-    const [songs, setSongs] = useState([]);
+    const [allSongs, setSongs] = useState([]);
     const [mysterySong, setMysterySong] = useState(null);
+    const [songOptions, setSongOptions] = useState([]);
+    const [score, setScore] = useState(0);
 
+    let answer = null;
     const getSongs = async () => {
-        const response = await fetch('http://localhost:1323/top-songs', {
-            method: 'GET',
-            credentials: 'include', 
-        });
+        let offset = 0;
+        let songs = [];
+        let count = 0;
+        // while (true){
+            const response = await fetch('http://localhost:1323/top-songs?offset=' + offset, {
+                method: 'GET',
+                credentials: 'include', 
+            });
 
-        const data = await response.json();
-        console.log('Songs:', data.items);
+            const data = await response.json();
+            console.log('Songs:', data.items);
+            if (offset + 50 > data.total){
+                offset = data.total - 50;
+            }else{
+                offset += 50;
+            }
+            songs.push(data.items);
+            count += offset;
+            // if (count >= data.total){
+            //     break;
+            // }
+            // console.log(count)
+        // }
         setSongs(data.items);
-
-        //randomize song
-        let randomSong = data.items[Math.floor(Math.random() * songs.length)];
-        setMysterySong(randomSong.track);
     };
+
+    useEffect(() => {
+        if (allSongs.length > 0) {
+            handleSongClick();
+        }
+    }, [allSongs]);
 
     useEffect(() => {
         getSongs();
     }, []);
+    
 
     function handleSongClick(){
-        let randomSong = songs[Math.floor(Math.random() * songs.length)];
+        let randomSong = allSongs[Math.floor(Math.random() * allSongs.length)];
         setMysterySong(randomSong.track);
+        answer = randomSong.track;
+        randomizeSongOptions();
     };
+    
+    function randomizeSongOptions(){
+        let randomOptions = [];
+        randomOptions.push(answer);
+        let i = 0;
+        while(i < 3){
+            let randomSong = allSongs[Math.floor(Math.random() * allSongs.length)];
+            if (randomOptions.includes(randomSong.track)){
+                continue;
+            }
+            randomOptions.push(randomSong.track);
+            i++;
+        }
+        shuffleArray(randomOptions);
+        setSongOptions(randomOptions);
+    }
 
-
+    function handleOptionClick(song) {
+        if (song === mysterySong) {
+            setScore(score + 1); // Increase score by 1
+        }
+        handleSongClick();
+    }
+    
     return (
         <div>
-            {songs.length > 0 && <MysterySong song={mysterySong} />}
-            {songs.map((song) => (
-                <button onClick={handleSongClick}><Song song={song.track}/></button>
-            ))}
+            <h1>{score}</h1> {/* Display the score */}
+            <MysterySong song={mysterySong} />
+            <div className='flex'>
+                {songOptions.map((song) => (
+                    <button onClick={() => handleOptionClick(song, answer)} key={song.name}>
+                        <Song song={song}/>
+                    </button>
+                ))}
+            </div>
         </div>
     );
 }
