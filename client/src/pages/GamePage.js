@@ -63,7 +63,6 @@ function GamePage() {
         let randomSong = allSongs[Math.floor(Math.random() * allSongs.length)];
         setMysterySong(randomSong.track);
         answer = randomSong.track;
-        console.log(answer)
         randomizeSongOptions();
     };
     
