@@ -52,6 +52,7 @@ function GamePage() {
         if (allSongs.length > 0) {
             handleSongClick();
         }
+        // eslint-disable-next-line
     }, [allSongs]);
 
     useEffect(() => {
@@ -70,7 +71,7 @@ function GamePage() {
         let randomOptions = [];
         randomOptions.push(answer);
         let i = 0;
-        while(i < 3){
+        while(i < (3 + Math.floor(score / 5))){
             let randomSong = allSongs[Math.floor(Math.random() * allSongs.length)];
             if (randomOptions.includes(randomSong.track)){
                 continue;
@@ -98,7 +99,7 @@ function GamePage() {
     return (
         <div>
             <h1>Score: {score}</h1> {/* Display the score */}
-            <MysterySong song={mysterySong} />
+            <MysterySong song={mysterySong} delay={Math.max(5 - Math.sqrt(score), 0.2)}/>
             <div className='flex'>
                 {songOptions.map((song) => (
                     <button onClick={() => handleOptionClick(song, answer)} key={song.name}>

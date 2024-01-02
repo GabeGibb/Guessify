@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-function MysterySong({ song }) {
+function MysterySong({ song, delay }) {
     let localVol = 0.5;
     if (localStorage.getItem('volume') === null) {
         localStorage.setItem('volume', '0.5');
@@ -11,18 +11,29 @@ function MysterySong({ song }) {
     const [isPlaying, setIsPlaying] = useState(false);
     const [volume, setVolume] = useState(localVol);
 
+    const tId = useRef();
     const audioRef = useRef();
 
+    console.log(delay)
     useEffect(() => {
         setIsPlaying(false);
+        clearTimeout(tId.current);
     }, [song]);
 
-    function handleClick() {
+    
+    function togglePlay() {
+        clearTimeout(tId.current);
         setIsPlaying(!isPlaying);
         if (isPlaying) {
             audioRef.current.pause();
+            audioRef.current.currentTime = 0;
         } else {
             audioRef.current.play();
+            tId.current = setTimeout(() => {
+                setIsPlaying(false);
+                audioRef.current.pause();
+                audioRef.current.currentTime = 0;
+            }, delay * 1000);
         }
     };
 
@@ -34,7 +45,7 @@ function MysterySong({ song }) {
 
     return (
         <div>
-            <button onClick={handleClick} className='flex'>
+            <button onClick={togglePlay} className='flex'>
                 {isPlaying ? 'Pause' : 'Play'}
                 {song && <audio ref={audioRef} src={song.preview_url} onEnded={() => setIsPlaying(false)}/>}
             </button>
