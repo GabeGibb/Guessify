@@ -20,7 +20,7 @@ function GamePage() {
         let offset = 0;
         let songs = [];
         let count = 0;
-        while (count < 500) {
+        while (count < 200) {
             const response = await fetch('http://localhost:1323/top-songs?offset=' + offset, {
                 method: 'GET',
                 credentials: 'include',
@@ -43,7 +43,6 @@ function GamePage() {
         }
 
         // Remove songs with null preview URL
-        console.log(songs)
         songs = songs.filter((song) => song.track.preview_url !== null);
         setSongs(songs);
 
@@ -51,7 +50,7 @@ function GamePage() {
 
     useEffect(() => {
         if (allSongs.length > 0) {
-            handleSongClick();
+            randomizeSongs();
         }
         // eslint-disable-next-line
     }, [allSongs]);
@@ -59,9 +58,10 @@ function GamePage() {
     useEffect(() => {
         getSongs();
     }, []);
+
     
 
-    function handleSongClick(){
+    function randomizeSongs(){
         let randomSong = allSongs[Math.floor(Math.random() * allSongs.length)];
         setMysterySong(randomSong.track);
         answer = randomSong.track;
@@ -72,7 +72,7 @@ function GamePage() {
         let randomOptions = [];
         randomOptions.push(answer);
         let i = 0;
-        while(i < (3 + Math.floor(score / 5))){
+        while(i < (3 + Math.floor((score+1) / 5))){
             let randomSong = allSongs[Math.floor(Math.random() * allSongs.length)];
             if (randomOptions.includes(randomSong.track)){
                 continue;
@@ -90,7 +90,7 @@ function GamePage() {
         }else{
             setScore(0); 
         }
-        handleSongClick();
+        randomizeSongs();
     }
 
     if (allSongs.length <= 0) {
