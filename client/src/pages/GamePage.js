@@ -20,13 +20,14 @@ function GamePage() {
         let offset = 0;
         let songs = [];
         let count = 0;
-        while (count < 100) {
+        while (count < 500) {
             const response = await fetch('http://localhost:1323/top-songs?offset=' + offset, {
                 method: 'GET',
                 credentials: 'include',
             });
 
             const data = await response.json();
+            console.log(data.total)
             songs.push(...data.items);
             
             if (offset + 50 > data.total) {
@@ -102,7 +103,7 @@ function GamePage() {
             <MysterySong song={mysterySong} delay={Math.max(5 - Math.sqrt(score), 0.2)}/>
             <div className='flex'>
                 {songOptions.map((song) => (
-                    <button onClick={() => handleOptionClick(song, answer)} key={song.name}>
+                    <button className='mr-5' onClick={() => handleOptionClick(song, answer)} key={song.name}>
                         <Song song={song}/>
                     </button>
                 ))}

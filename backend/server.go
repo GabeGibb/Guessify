@@ -119,7 +119,3 @@ func getTopSongs(c echo.Context) error {
 	url := fmt.Sprintf("https://api.spotify.com/v1/me/tracks?limit=50&offset=%d", offset)
 	return getSpotify(c, url)
 }
-
-// func getTopSongs(c echo.Context) error {
-// 	return getSpotify(c, "https://api.spotify.com/v1/me/tracks?limit=50")
-// }
