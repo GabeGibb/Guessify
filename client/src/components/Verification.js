@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import baseUrl from '../services/Url';
 
 const Verification = () => {
     async function verify() {
-        const response = await fetch('http://localhost:1323/verify-user', {
+        const response = await fetch(baseUrl+'verify-user', {
             method: 'GET',
             credentials: 'include',
             headers: {
@@ -13,13 +14,16 @@ const Verification = () => {
 
         const data = await response;
         console.log("STATUS", data.status)
-        if (data.status != 200 && window.location.href != "http://localhost:3000/") {
-            window.location.href = "http://localhost:3000/";
+        console.log(window.location)
+        if (data.status != 200 && window.location.pathname != "/") {
+            window.location.pathname = "/";
         }
     }
 
     useEffect(() => {
-        verify();
+        if (window.location.pathname != "/"){
+            verify();
+        }
     }, []);
 
     return (

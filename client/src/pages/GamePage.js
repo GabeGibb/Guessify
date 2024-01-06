@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Song from '../components/Song';
 import MysterySong from '../components/MysterySong';
+import baseUrl from '../services/Url';
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -21,7 +22,7 @@ function GamePage() {
         let songs = [];
         let count = 0;
         while (count < 200) {
-            const response = await fetch('http://localhost:1323/top-songs?offset=' + offset, {
+            const response = await fetch(baseUrl + 'top-songs?offset=' + offset, {
                 method: 'GET',
                 credentials: 'include',
             });

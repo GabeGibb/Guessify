@@ -1,13 +1,14 @@
 
 import {React, useState, useEffect} from "react";
 import Compilation from "../components/Compilation";
+import baseUrl from "../services/Url";
 
 const HomePage = () => {
     const [artists, setArtists] = useState(null);
     const [playlists, setPlaylists] = useState(null);
 
     async function getArtists(){
-        const response = await fetch('http://localhost:1323/top-artists', {
+        const response = await fetch(baseUrl + 'top-artists', {
             method: 'GET',
             credentials: 'include',
         });
@@ -18,7 +19,7 @@ const HomePage = () => {
     }
 
     async function getPlaylists(){
-        const response = await fetch('http://localhost:1323/top-playlists', {
+        const response = await fetch(baseUrl + 'top-playlists', {
             method: 'GET',
             credentials: 'include',
         });

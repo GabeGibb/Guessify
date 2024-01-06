@@ -1,10 +1,10 @@
+import baseUrl from "../services/Url";
 
 function MainPage() {
     
-
     return (
         <div>
-            <a href="http://localhost:1323/login">LOGIN TO SPOTIFY</a>
+            <a href={baseUrl+"login"}>LOGIN TO SPOTIFY</a>
         </div>
     );
 }
