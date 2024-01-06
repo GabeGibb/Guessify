@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import baseUrl from '../services/Url';
 
 const Verification = () => {
@@ -15,13 +15,13 @@ const Verification = () => {
         const data = await response;
         console.log("STATUS", data.status)
         console.log(window.location)
-        if (data.status != 200 && window.location.pathname != "/") {
+        if (data.status !== 200 && window.location.pathname !== "/") {
             window.location.pathname = "/";
         }
     }
 
     useEffect(() => {
-        if (window.location.pathname != "/"){
+        if (window.location.pathname !== "/"){
             verify();
         }
     }, []);
