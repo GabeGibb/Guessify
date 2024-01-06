@@ -72,7 +72,7 @@ function GamePage() {
         let randomOptions = [];
         randomOptions.push(answer);
         let i = 0;
-        while(i < (3 + Math.floor((score+1) / 5))){
+        while(i < 3){
             let randomSong = allSongs[Math.floor(Math.random() * allSongs.length)];
             if (randomOptions.includes(randomSong.track)){
                 continue;

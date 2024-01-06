@@ -43,13 +43,22 @@ func main() {
 	e.GET("/login", login)
 	e.GET("/callback", callback)
 	e.GET("/token", token)
-	e.GET("/top-songs", getTopSongs) // New endpoint to get top songs
+	e.GET("/verify-user", verifyUser)
+
+	e.GET("/top-songs", getTopSongs)
+	e.GET("/top-artists", getArtists)
+	e.GET("top-playlists", getPlaylists)
 
 	e.Logger.Fatal(e.Start("localhost:1323"))
 }
 
 func hello(c echo.Context) error {
 	return c.String(http.StatusOK, "Hello, World!")
+}
+
+func verifyUser(c echo.Context) error {
+	url := "https://api.spotify.com/v1/me"
+	return getSpotify(c, url)
 }
 
 func login(c echo.Context) error {
@@ -111,11 +120,18 @@ func getSpotify(c echo.Context, url string) error {
 
 func getTopSongs(c echo.Context) error {
 	offsetStr := c.QueryParam("offset")
-	offset, err := strconv.Atoi(offsetStr)
-	if err != nil {
-		// Handle error
-	}
+	offset, _ := strconv.Atoi(offsetStr)
 
 	url := fmt.Sprintf("https://api.spotify.com/v1/me/tracks?limit=50&offset=%d", offset)
+	return getSpotify(c, url)
+}
+
+func getArtists(c echo.Context) error {
+	url := "https://api.spotify.com/v1/me/top/artists?limit=10"
+	return getSpotify(c, url)
+}
+
+func getPlaylists(c echo.Context) error {
+	url := "https://api.spotify.com/v1/me/playlists?limit=10"
 	return getSpotify(c, url)
 }
