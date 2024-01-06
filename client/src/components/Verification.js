@@ -24,7 +24,6 @@ const Verification = () => {
 
     return (
         <div>
-            <h1>Verification Component</h1>
         </div>
     );
 };
