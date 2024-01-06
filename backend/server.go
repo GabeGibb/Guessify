@@ -49,49 +49,11 @@ func main() {
 	e.GET("/top-artists", getArtists)
 	e.GET("top-playlists", getPlaylists)
 
-	e.Logger.Fatal(e.Start("localhost:1323"))
+	e.Logger.Fatal(e.Start(":1323"))
 }
 
 func hello(c echo.Context) error {
 	return c.String(http.StatusOK, "Hello, World!")
-}
-
-func verifyUser(c echo.Context) error {
-	url := "https://api.spotify.com/v1/me"
-	return getSpotify(c, url)
-}
-
-func login(c echo.Context) error {
-	url := conf.AuthCodeURL("state", oauth2.AccessTypeOffline)
-	return c.Redirect(http.StatusTemporaryRedirect, url)
-}
-
-func callback(c echo.Context) error {
-	code := c.QueryParam("code")
-	token, err := conf.Exchange(context.Background(), code)
-	if err != nil {
-		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to exchange token: %s", err.Error()))
-	}
-
-	sess, err := session.Get("session", c)
-	if err != nil {
-		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to get session: %s", err.Error()))
-	}
-
-	sess.Values["token"] = token.AccessToken
-	err = sess.Save(c.Request(), c.Response())
-	if err != nil {
-		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to save session: %s", err.Error()))
-	}
-
-	return c.Redirect(http.StatusTemporaryRedirect, "http://localhost:3000/game")
-}
-
-func token(c echo.Context) error {
-	sess, _ := session.Get("session", c)
-	token := sess.Values["token"]
-
-	return c.JSON(http.StatusOK, map[string]string{"access_token": token.(string)})
 }
 
 func getSpotify(c echo.Context, url string) error {
@@ -141,6 +103,44 @@ func getSpotify(c echo.Context, url string) error {
 	}
 
 	return c.JSON(http.StatusOK, result)
+}
+
+func verifyUser(c echo.Context) error {
+	url := "https://api.spotify.com/v1/me"
+	return getSpotify(c, url)
+}
+
+func login(c echo.Context) error {
+	url := conf.AuthCodeURL("state", oauth2.AccessTypeOffline)
+	return c.Redirect(http.StatusTemporaryRedirect, url)
+}
+
+func callback(c echo.Context) error {
+	code := c.QueryParam("code")
+	token, err := conf.Exchange(context.Background(), code)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to exchange token: %s", err.Error()))
+	}
+
+	sess, err := session.Get("session", c)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to get session: %s", err.Error()))
+	}
+
+	sess.Values["token"] = token.AccessToken
+	err = sess.Save(c.Request(), c.Response())
+	if err != nil {
+		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to save session: %s", err.Error()))
+	}
+
+	return c.Redirect(http.StatusTemporaryRedirect, "http://localhost:3000/game")
+}
+
+func token(c echo.Context) error {
+	sess, _ := session.Get("session", c)
+	token := sess.Values["token"]
+
+	return c.JSON(http.StatusOK, map[string]string{"access_token": token.(string)})
 }
 
 func getTopSongs(c echo.Context) error {
