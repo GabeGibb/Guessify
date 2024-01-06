@@ -95,25 +95,50 @@ func token(c echo.Context) error {
 }
 
 func getSpotify(c echo.Context, url string) error {
-	sess, _ := session.Get("session", c)
-	token := sess.Values["token"].(string)
+	sess, err := session.Get("session", c)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to get session: %s", err.Error()))
+	}
+
+	token, ok := sess.Values["token"].(string)
+	if !ok {
+		return c.String(http.StatusInternalServerError, "Failed to get access token from session")
+	}
 
 	// Create a new request
-	req, _ := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to create request: %s", err.Error()))
+	}
 
 	// Add the Authorization header to the request
 	req.Header.Add("Authorization", "Bearer "+token)
 
 	// Send the request
 	client := &http.Client{}
-	resp, _ := client.Do(req)
+	resp, err := client.Do(req)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to send request: %s", err.Error()))
+	}
+	defer resp.Body.Close()
+
+	// Check the response status code
+	if resp.StatusCode != http.StatusOK {
+		return c.String(resp.StatusCode, "Spotify API returned an error")
+	}
 
 	// Read the response body
-	body, _ := ioutil.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to read response body: %s", err.Error()))
+	}
 
 	// Parse the JSON response
 	var result map[string]interface{}
-	json.Unmarshal(body, &result)
+	err = json.Unmarshal(body, &result)
+	if err != nil {
+		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to parse JSON response: %s", err.Error()))
+	}
 
 	return c.JSON(http.StatusOK, result)
 }
