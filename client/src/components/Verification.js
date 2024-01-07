@@ -3,18 +3,18 @@ import baseUrl from '../services/Url';
 
 const Verification = () => {
     async function verify() {
-        const response = await fetch(baseUrl+'verify-user', {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+        // const response = await fetch(baseUrl+'verify-user', {
+        //     method: 'GET',
+        //     credentials: 'include',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
             
-        });
+        // });
 
-        const data = await response;
-        console.log("STATUS", data.status)
-        console.log(window.location)
+        // const data = await response;
+        // console.log("STATUS", data.status)
+        // console.log(window.location)
         // if (data.status !== 200 && window.location.pathname !== "/") {
         //     window.location.pathname = "/";
         // }
