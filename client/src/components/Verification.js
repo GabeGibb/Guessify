@@ -3,7 +3,7 @@ import baseUrl from '../services/Url';
 
 const Verification = () => {
     async function verify() {
-        const response = await fetch(baseUrl+'verify-user', {
+        const response = await fetch(baseUrl+'token', {
             method: 'GET',
             credentials: 'include',
             headers: {
