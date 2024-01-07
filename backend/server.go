@@ -54,7 +54,7 @@ func main() {
 
 	e.GET("/top-songs", getTopSongs)
 	e.GET("/top-artists", getArtists)
-	e.GET("top-playlists", getPlaylists)
+	e.GET("/top-playlists", getPlaylists)
 
 	e.Logger.Fatal(e.Start(":1323"))
 }
