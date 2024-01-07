@@ -14,13 +14,14 @@ function MysterySong({ song, delay }) {
     const tId = useRef();
     const audioRef = useRef();
 
-    console.log(delay)
     useEffect(() => {
+        if (audioRef.current && volume){
+            audioRef.current.volume = volume;
+        }
         setIsPlaying(false);
         clearTimeout(tId.current);
     }, [song]);
 
-    
     function togglePlay() {
         clearTimeout(tId.current);
         setIsPlaying(!isPlaying);

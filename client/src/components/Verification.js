@@ -3,7 +3,7 @@ import baseUrl from '../services/Url';
 
 const Verification = () => {
     async function verify() {
-        const response = await fetch(baseUrl+'token', {
+        const response = await fetch(baseUrl+'verify-user', {
             method: 'GET',
             credentials: 'include',
             headers: {
@@ -13,12 +13,11 @@ const Verification = () => {
         });
 
         const data = await response;
-        console.log(data)
-        // console.log("STATUS", data.status)
-        // console.log(window.location)
-        // if (data.status !== 200 && window.location.pathname !== "/") {
-        //     window.location.pathname = "/";
-        // }
+        console.log("STATUS", data.status)
+        
+        if (data.status !== 200 && window.location.pathname !== "/") {
+            window.location.pathname = "/";
+        }
     }
 
     useEffect(() => {
