@@ -19,7 +19,7 @@ export default function App() {
                     <Route path="/" element={<MainPage />} />
                     <Route path="/game" element={<GamePage />} />
                     <Route path="/home" element={<HomePage />} />
-                    <Route path="*" element={<MainPage />} /> {/*ERROR*/}
+                    {/* <Route path="*" element={<MainPage />} /> ERROR */}
                 </Routes>
             </BrowserRouter>
             </>
