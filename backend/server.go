@@ -34,6 +34,13 @@ func setupConfig() {
 		},
 	}
 	store = sessions.NewCookieStore([]byte("secret"))
+	store.Options = &sessions.Options{
+		Path:     "/",
+		MaxAge:   86400, // 1 day
+		HttpOnly: true,
+		SameSite: http.SameSiteNoneMode,
+		Secure:   true,
+	}
 }
 
 func main() {
