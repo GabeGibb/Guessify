@@ -6,21 +6,27 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 
 	"strconv"
 
 	"github.com/gorilla/sessions"
+	"github.com/joho/godotenv"
 	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"golang.org/x/oauth2"
 )
 
-var (
+var conf = &oauth2.Config{}
+var store = sessions.NewCookieStore([]byte("secret"))
+
+func setupConfig() {
+	godotenv.Load()
 	conf = &oauth2.Config{
-		ClientID:     "fa88e2d1111a4e97bcd60671117fc068",
-		ClientSecret: "7ebd8fe4811a49e4842b19e13e1ba391",
-		RedirectURL:  "http://localhost:1323/callback",
+		ClientID:     os.Getenv("CLIENT_ID"),
+		ClientSecret: os.Getenv("CLIENT_SECRET"),
+		RedirectURL:  os.Getenv("REDIRECT_URL"),
 		Scopes:       []string{"user-read-private", "user-read-email", "user-top-read", "user-library-read"},
 		Endpoint: oauth2.Endpoint{
 			AuthURL:  "https://accounts.spotify.com/authorize",
@@ -28,14 +34,15 @@ var (
 		},
 	}
 	store = sessions.NewCookieStore([]byte("secret"))
-)
+}
 
 func main() {
+	setupConfig()
 	e := echo.New()
 
 	e.Use(session.Middleware(store))
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins:     []string{"http://localhost:3000"},
+		AllowOrigins:     []string{os.Getenv("FRONTEND_URL")},
 		AllowCredentials: true,
 	}))
 
@@ -133,7 +140,7 @@ func callback(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to save session: %s", err.Error()))
 	}
 
-	return c.Redirect(http.StatusTemporaryRedirect, "http://localhost:3000/game")
+	return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("FRONTEND_URL")+"/game")
 }
 
 func token(c echo.Context) error {
