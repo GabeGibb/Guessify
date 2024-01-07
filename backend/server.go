@@ -147,7 +147,7 @@ func callback(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to save session: %s", err.Error()))
 	}
 
-	return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("FRONTEND_URL")+"/game")
+	return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("FRONTEND_URL")+"/home")
 }
 
 func token(c echo.Context) error {

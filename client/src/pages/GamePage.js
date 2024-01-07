@@ -3,6 +3,7 @@ import Song from '../components/Song';
 import MysterySong from '../components/MysterySong';
 import baseUrl from '../services/Url';
 
+const maxSongs = 200;
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -21,15 +22,15 @@ function GamePage() {
         let offset = 0;
         let songs = [];
         let count = 0;
-        while (count < 200) {
+        while (count < maxSongs) {
             const response = await fetch(baseUrl + 'top-songs?offset=' + offset, {
                 method: 'GET',
                 credentials: 'include',
             });
 
             const data = await response.json();
-            console.log(data.total)
             songs.push(...data.items);
+            console.log(songs.length)
             
             if (offset + 50 > data.total) {
                 offset += data.total - 50;
@@ -63,8 +64,11 @@ function GamePage() {
     
 
     function randomizeSongs(){
-        let randomSong = allSongs[Math.floor(Math.random() * allSongs.length)];
+        let randIndex = Math.floor(Math.random() * allSongs.length);
+        let randomSong = allSongs[randIndex];
         setMysterySong(randomSong.track);
+        allSongs.splice(randIndex, 1)
+        setSongs(allSongs);
         answer = randomSong.track;
         randomizeSongOptions();
     };

@@ -20,6 +20,7 @@ function MysterySong({ song, delay }) {
         }
         setIsPlaying(false);
         clearTimeout(tId.current);
+        // eslint-disable-next-line
     }, [song]);
 
     function togglePlay() {
