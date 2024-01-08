@@ -8,8 +8,6 @@ import (
 	"net/http"
 	"os"
 
-	"strconv"
-
 	"github.com/gorilla/sessions"
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo-contrib/session"
@@ -62,6 +60,9 @@ func main() {
 	e.GET("/top-songs", getTopSongs)
 	e.GET("/top-artists", getArtists)
 	e.GET("/top-playlists", getPlaylists)
+	e.GET("/artist-albums", getArtistAlbums)
+	e.GET("/multiple-artist-albums", getMultipleArtistAlbums)
+	e.GET("/playlist-songs", getPlayistSongs)
 
 	e.Logger.Fatal(e.Start(":1323"))
 }
@@ -158,10 +159,9 @@ func token(c echo.Context) error {
 }
 
 func getTopSongs(c echo.Context) error {
-	offsetStr := c.QueryParam("offset")
-	offset, _ := strconv.Atoi(offsetStr)
+	offset := c.QueryParam("offset")
 
-	url := fmt.Sprintf("https://api.spotify.com/v1/me/tracks?limit=50&offset=%d", offset)
+	url := fmt.Sprintf("https://api.spotify.com/v1/me/tracks?limit=50&offset=%s", offset)
 	return getSpotify(c, url)
 }
 
@@ -172,5 +172,26 @@ func getArtists(c echo.Context) error {
 
 func getPlaylists(c echo.Context) error {
 	url := "https://api.spotify.com/v1/me/playlists?limit=10"
+	return getSpotify(c, url)
+}
+
+func getArtistAlbums(c echo.Context) error {
+	artistID := c.QueryParam("id")
+	url := fmt.Sprintf("https://api.spotify.com/v1/artists/%s/albums?include_groups=album,single", artistID)
+
+	return getSpotify(c, url)
+}
+
+func getMultipleArtistAlbums(c echo.Context) error {
+	artistIDs := c.QueryParam("id")
+	url := fmt.Sprintf("https://api.spotify.com/v1/albums?ids=%s", artistIDs)
+	return getSpotify(c, url)
+}
+
+func getPlayistSongs(c echo.Context) error {
+	playlistID := c.QueryParam("id")
+	offset := c.QueryParam("offset")
+
+	url := fmt.Sprintf("https://api.spotify.com/v1/playlists/%s/tracks?limit=100&offset=%s", playlistID, offset)
 	return getSpotify(c, url)
 }

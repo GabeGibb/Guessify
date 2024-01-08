@@ -18,12 +18,15 @@ const Verification = () => {
         if (data.status !== 200 && window.location.pathname !== "/") {
             window.location.pathname = "/";
         }
+        else if (data.status === 200 && window.location.pathname === "/") {
+            window.location.pathname = "/home";
+        }
     }
 
     useEffect(() => {
-        if (window.location.pathname !== "/"){
-            verify();
-        }
+        
+        verify();
+        
     }, []);
 
     return (

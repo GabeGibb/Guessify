@@ -36,12 +36,16 @@ const HomePage = () => {
 
     return (
         <div>
-            {artists && artists.map((artist) => (
-                <Compilation image={artist.images[0].url} name={artist.name} key={artist.id}/>
-            ))}
-            {playlists && playlists.map((playlist) => (
-                playlist.images.length > 0 && <Compilation image={playlist.images[0].url} name={playlist.name} key={playlist.id}/>
-            ))}
+            <div className="flex">
+                {artists && artists.map((artist) => (
+                    <Compilation info={artist} key={artist.id}/>
+                ))}
+            </div>
+            <div className="flex">
+                {playlists && playlists.map((playlist) => (
+                    playlist.images.length > 0 && <Compilation info={playlist} key={playlist.id}/>
+                ))}
+            </div>
         </div>
     );
 };
