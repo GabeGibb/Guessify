@@ -64,7 +64,7 @@ func main() {
 	e.GET("/multiple-artist-albums", getMultipleArtistAlbums)
 	e.GET("/playlist-songs", getPlayistSongs)
 
-	e.Logger.Fatal(e.Start(":1323"))
+	e.Logger.Fatal(e.Start(os.Getenv("HOST") + ":1323"))
 }
 
 func hello(c echo.Context) error {
