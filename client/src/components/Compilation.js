@@ -11,7 +11,7 @@ const Compilation = ({ info }) => {
             const data = await response.json();
             console.log(data)
             let ids = ""
-            for (let i = 0; i < data.items.length; i++){   
+            for (let i = 0; i < data.items.length; i++){
                 ids += data.items[i].id + ","
             }
             ids = ids.substring(0, ids.length - 1);
