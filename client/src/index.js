@@ -12,17 +12,17 @@ import HomePage from './pages/HomePage';
 
 export default function App() {
         return (
-            <>
-            <Verification />
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<MainPage />} />
-                    <Route path="/game" element={<GamePage />} />
-                    <Route path="/home" element={<HomePage />} />
-                    {/* <Route path="*" element={<MainPage />} /> ERROR */}
-                </Routes>
-            </BrowserRouter>
-            </>
+            <div>
+                <Verification />
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/" element={<MainPage />} />
+                        <Route path="/game" element={<GamePage />} />
+                        <Route path="/home" element={<HomePage />} />
+                        {/* <Route path="*" element={<MainPage />} /> ERROR */}
+                    </Routes>
+                </BrowserRouter>
+            </div>
         );
     }
 
