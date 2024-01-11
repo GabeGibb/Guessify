@@ -82,7 +82,7 @@ function GamePage() {
         console.log(songs)
 
         songs = songs.filter((song) => song.track.preview_url !== null);
-        
+        songs = songs.filter((song, index) => songs.indexOf(song) === index);
         setSongs(songs);
         console.log(songs.length)
 
