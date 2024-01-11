@@ -148,15 +148,25 @@ function GamePage() {
     }
     
     return (
-        <div>
-            <h1>Score: {score}</h1> {/* Display the score */}
-            <MysterySong song={mysterySong} delay={Math.max(5 - Math.sqrt(score), 0.2)}/>
-            <div className='flex'>
-                {songOptions.map((song) => (
-                    <button className='mr-5' onClick={() => handleOptionClick(song)} key={song.id}>
-                        <Song song={song}/>
-                    </button>
-                ))}
+        <div className='flex flex-col'>
+            <div className='float-right'>
+                <h1>Score: {score}</h1> {/* Display the score */}
+                <MysterySong song={mysterySong} delay={Math.max(5 - Math.sqrt(score), 0.2)}/>
+            </div>
+            <div className="w-0 h-0 
+  border-t-[50px] border-t-transparent
+  border-l-[75px] border-l-white-500
+  border-b-[50px] border-b-transparent">
+                
+            </div>
+            <div>
+                <div className='grid grid-cols-2 space-x-2 space-y-2'>
+                    {songOptions.map((song) => (
+                        <button className='border w-3/4 h-full flex justify-center' onClick={() => handleOptionClick(song)} key={song.id}>
+                            <Song song={song}/>
+                        </button>
+                    ))}
+                </div>
             </div>
         </div>
     );
