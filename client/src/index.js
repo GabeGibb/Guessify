@@ -12,7 +12,7 @@ import HomePage from './pages/HomePage';
 
 export default function App() {
         return (
-            <div>
+            <div className="text-white">
                 <Verification />
                 <BrowserRouter>
                     <Routes>

@@ -149,7 +149,7 @@ function GamePage() {
     
     return (
 
-        <div className='flex flex-col text-white'>
+        <div className='flex flex-col'>
             <div className='float-right'>
                 <div className='bg-black border rounded'>
                     <h1 className='text-[#1fd15e]'>duration: </h1>
