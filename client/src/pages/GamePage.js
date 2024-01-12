@@ -148,9 +148,8 @@ function GamePage() {
     }
     
     return (
-
         <div className='flex flex-col'>
-            <div className='float-right'>
+            <div className='self-end w-24'>
                 <div className='bg-black border rounded'>
                     <h1 className='text-[#1fd15e]'>duration: </h1>
                 </div>
@@ -158,13 +157,13 @@ function GamePage() {
                     <h1 className='text-[#1fd15e]'>score: {score}</h1>
                 </div>
             </div>
-            <div>
+            <div className='flex m-auto'>
                 <MysterySong song={mysterySong} delay={Math.max(5 - Math.sqrt(score), 0.2)}/>
             </div>
             <div>
-                <div className='grid grid-cols-2 space-x-2 space-y-2'>
+                <div className='grid grid-cols-2 w-2/3 m-auto gap-5'>
                     {songOptions.map((song) => (
-                        <button onClick={() => handleOptionClick(song)} key={song.id}>
+                        <button className='m-auto w-[90%] h-[120px]' onClick={() => handleOptionClick(song)} key={song.id}>
                             <Song song={song}/>
                         </button>
                     ))}
