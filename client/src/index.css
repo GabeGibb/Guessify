@@ -10,3 +10,7 @@
         background-size: cover;
     }
 }
+
+:root{
+    --spotify-green: #1DB954;
+}

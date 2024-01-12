@@ -6,6 +6,7 @@ import Verification from './components/Verification';
 import MainPage from './pages/MainPage';
 import GamePage from './pages/GamePage';
 import HomePage from './pages/HomePage';
+import Navbar from './components/Navbar';
 
 
 
@@ -14,6 +15,7 @@ export default function App() {
         return (
             <div className="text-white">
                 <Verification />
+                <Navbar />
                 <BrowserRouter>
                     <Routes>
                         <Route path="/" element={<MainPage />} />

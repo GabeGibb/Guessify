@@ -29,6 +29,7 @@ function GamePage() {
     const [mysterySong, setMysterySong] = useState(null);
     const [songOptions, setSongOptions] = useState([]);
     const [score, setScore] = useState(0);
+    const [delay, setDelay] = useState(5);
 
     let answer = null;
     const getSongs = async () => {
@@ -82,7 +83,7 @@ function GamePage() {
         console.log(songs)
 
         songs = songs.filter((song) => song.track.preview_url !== null);
-        songs = songs.filter((song, index) => songs.indexOf(song) === index);
+        songs = songs.filter((song, index) => songs.findIndex(s => s.track.id === song.track.id) === index);
         setSongs(songs);
         console.log(songs.length)
 
@@ -98,6 +99,12 @@ function GamePage() {
     useEffect(() => {
         getSongs();
     }, []);
+
+    useEffect(() => {
+        let curDelay = Math.max(5 - Math.sqrt(score), 0.2)
+        curDelay= curDelay.toFixed(2);
+        setDelay(curDelay);
+    }, [score]);
 
     
 
@@ -149,21 +156,21 @@ function GamePage() {
     
     return (
         <div className='flex flex-col'>
-            <div className='self-end w-24'>
+            <div className='self-end w-40 mx-4'> 
                 <div className='bg-black border rounded'>
-                    <h1 className='text-[#1fd15e]'>duration: </h1>
+                    <h1 className='text-[#1fd15e] p-2 font-semibold'>duration: {delay}</h1>
                 </div>
                 <div className='bg-black border rounded'>
-                    <h1 className='text-[#1fd15e]'>score: {score}</h1>
+                    <h1 className='text-[#1fd15e] p-2 font-semibold'>score: {score}</h1>
                 </div>
             </div>
             <div className='flex m-auto'>
-                <MysterySong song={mysterySong} delay={Math.max(5 - Math.sqrt(score), 0.2)}/>
+                <MysterySong song={mysterySong} delay={delay}/>
             </div>
             <div>
-                <div className='grid grid-cols-2 w-2/3 m-auto gap-5'>
+                <div className='grid grid-cols-1 md:grid-cols-2 w-7/8 max-w-[1000px] m-auto gap-5 mt-14'>
                     {songOptions.map((song) => (
-                        <button className='m-auto w-[90%] h-[120px]' onClick={() => handleOptionClick(song)} key={song.id}>
+                        <button className='m-auto w-[90%] h-[100px]' onClick={() => handleOptionClick(song)} key={song.id}>
                             <Song song={song}/>
                         </button>
                     ))}
