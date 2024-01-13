@@ -134,7 +134,9 @@ func login(c echo.Context) error {
 
 func callback(c echo.Context) error {
 	code := c.QueryParam("code")
+	fmt.Println("Authorization code:", code)
 	token, err := conf.Exchange(context.Background(), code)
+
 	if err != nil {
 		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to exchange token: %s", err.Error()))
 	}
@@ -150,7 +152,7 @@ func callback(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to save session: %s", err.Error()))
 	}
 
-	return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("FRONTEND_URL")+"home")
+	return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("FRONTEND_URL")+"/home")
 }
 
 func token(c echo.Context) error {
