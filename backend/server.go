@@ -162,8 +162,13 @@ func token(c echo.Context) error {
 
 func getTopSongs(c echo.Context) error {
 	offset := c.QueryParam("offset")
+	timeRange := c.QueryParam("time_range")
+	if timeRange == "" {
+		timeRange = "medium_term"
+	}
 
-	url := fmt.Sprintf("https://api.spotify.com/v1/me/tracks?limit=50&offset=%s", offset)
+	url := fmt.Sprintf("https://api.spotify.com/v1/me/tracks?time_range=%s&limit=50&offset=%s", timeRange, offset)
+
 	return getSpotify(c, url)
 }
 

@@ -6,8 +6,9 @@ import baseUrl from '../services/Url';
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
 const type = urlParams.get('type');
+const term = urlParams.get('time_range');
 
-let songsUrl = baseUrl + 'top-songs?offset=';
+let songsUrl = baseUrl + 'top-songs?time_range=' + term + '&offset=';
 if (type === 'artist' && id) {
     songsUrl = baseUrl + 'multiple-artist-albums?id=' + id;
 } else if (type === 'playlist' && id){
@@ -15,7 +16,7 @@ if (type === 'artist' && id) {
 }   
 
 
-const maxSongs = 200;
+const maxSongs = 1000;
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {

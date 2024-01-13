@@ -3,6 +3,12 @@ import {React, useState, useEffect} from "react";
 import Compilation from "../components/Compilation";
 import baseUrl from "../services/Url";
 
+const topTracksCategories = [
+    {name: "Top Tracks Short", type: "all", images: [], id: 1, time_range: "short_term"},
+    {name: "Top Tracks Medium", type: "all", images: [], id: 2, time_range: "medium_term"},
+    {name: "Top Tracks Long", type: "all", images: [], id: 3, time_range: "long_term"}
+]
+
 const HomePage = () => {
     const [artists, setArtists] = useState(null);
     const [playlists, setPlaylists] = useState(null);
@@ -43,8 +49,12 @@ const HomePage = () => {
             </div>
             <div className="flex">
                 {playlists && playlists.map((playlist) => (
-                    console.log(playlist),
                     <Compilation info={playlist} key={playlist.id}/>
+                ))}
+            </div>
+            <div className="flex">
+                {topTracksCategories.map((topTracks) => (
+                    <Compilation info={topTracks} key={topTracks.id}/>
                 ))}
             </div>
         </div>
