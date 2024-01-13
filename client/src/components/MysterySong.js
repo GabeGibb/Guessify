@@ -13,6 +13,7 @@ function MysterySong({ song, delay }) {
 
     const tId = useRef();
     const audioRef = useRef();
+    const ringRef = useRef();
 
     useEffect(() => {
         if (audioRef.current && volume){
@@ -20,6 +21,7 @@ function MysterySong({ song, delay }) {
         }
         setIsPlaying(false);
         clearTimeout(tId.current);
+        ringRef.current.classList.remove('triggerRing');
         // eslint-disable-next-line
     }, [song]);
 
@@ -29,12 +31,16 @@ function MysterySong({ song, delay }) {
         if (isPlaying) {
             audioRef.current.pause();
             audioRef.current.currentTime = 0;
+            ringRef.current.classList.remove('triggerRing');
         } else {
             audioRef.current.play();
+            ringRef.current.classList.add('triggerRing');
+            ringRef.current.style.animationDuration = `${delay}s`;
             tId.current = setTimeout(() => {
                 setIsPlaying(false);
                 audioRef.current.pause();
                 audioRef.current.currentTime = 0;
+                ringRef.current.classList.remove('triggerRing');
             }, delay * 1000);
         }
     };
@@ -47,9 +53,11 @@ function MysterySong({ song, delay }) {
 
     return (
         <div>
-            
             <div className='relative'>
-                <div className="rounded-[50%] border-solid border-[#1fd15f] border-[14.81px] w-[197px] h-[197px]"></div>
+                <svg height="220" width="220">
+                    <circle ref={ringRef} cx="110" cy="110" r="95" />
+                </svg>
+                {/* <div className="rounded-[50%] border-solid border-[#1fd15f] border-[14.81px] w-[197px] h-[197px]"></div> */}
                 <button onClick={togglePlay} className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
                     {song && <audio ref={audioRef} src={song.preview_url} onEnded={() => setIsPlaying(false)}/>}
                     <svg className="rounded-none w-[86.64px] h-[87.26px] overflow-visible">             

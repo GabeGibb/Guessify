@@ -8,7 +8,27 @@
         font-family: 'Figtree', sans-serif;
         background-color: rgb(23 23 23);
         background-size: cover;
-    }
+    } 
+      
+    circle {
+        fill: none;
+        stroke: var(--spotify-green);
+        stroke-width: 15px;
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 400;
+      }
+      .triggerRing{
+        animation: rotate linear;
+      }
+      
+      @keyframes rotate {
+        from{
+            stroke-dashoffset: 1000;
+        }
+        to {
+            stroke-dashoffset: 400;
+        }
+      }
 }
 
 :root{
