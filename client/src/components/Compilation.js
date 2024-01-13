@@ -4,7 +4,7 @@ import blankCover from '../media/blankCover.png';
 
 const Compilation = ({ info }) => {
 
-    async function hai(){
+    async function routeToGame(){
         if (info.type === "artist"){
             const response = await fetch(baseUrl + 'artist-albums?id=' + info.id, {
                 method: 'GET',
@@ -25,7 +25,7 @@ const Compilation = ({ info }) => {
     }
 
     return (
-        <div onClick={hai}>
+        <div onClick={routeToGame}>
             <img src={info.images.length > 0 ? info.images[0].url : blankCover} alt={info.name} />
             <p>{info.name}</p>
         </div>
