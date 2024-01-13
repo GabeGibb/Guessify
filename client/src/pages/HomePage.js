@@ -43,7 +43,8 @@ const HomePage = () => {
             </div>
             <div className="flex">
                 {playlists && playlists.map((playlist) => (
-                    playlist.images.length > 0 && <Compilation info={playlist} key={playlist.id}/>
+                    console.log(playlist),
+                    <Compilation info={playlist} key={playlist.id}/>
                 ))}
             </div>
         </div>

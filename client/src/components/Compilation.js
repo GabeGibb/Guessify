@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import baseUrl from '../services/Url';
+import blankCover from '../media/blankCover.png';
 
 const Compilation = ({ info }) => {
+
     async function hai(){
         if (info.type === "artist"){
             const response = await fetch(baseUrl + 'artist-albums?id=' + info.id, {
@@ -24,7 +26,7 @@ const Compilation = ({ info }) => {
 
     return (
         <div onClick={hai}>
-            <img src={info.images[0].url} alt={info.name} />
+            <img src={info.images.length > 0 ? info.images[0].url : blankCover} alt={info.name} />
             <p>{info.name}</p>
         </div>
     );
