@@ -16,7 +16,7 @@ if (type === 'artist' && id) {
 }   
 
 
-const maxSongs = 1000;
+const maxSongs = 100;
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -157,12 +157,12 @@ function GamePage() {
     
     return (
         <div className='flex flex-col'>
-            <div className='self-end w-40 mx-4'> 
-                <div className='bg-black border rounded'>
-                    <h1 className='text-[#1fd15e] p-2 font-semibold'>duration: {delay}</h1>
-                </div>
-                <div className='bg-black border rounded'>
+            <div className=' self-end justify-evenly mx-4'> 
+                <div className='bg-black border rounded w-40'>
                     <h1 className='text-[#1fd15e] p-2 font-semibold'>score: {score}</h1>
+                </div>
+                <div className='bg-black border rounded w-40'>
+                    <h1 className='text-[#1fd15e] p-2 font-semibold'>duration: {delay}</h1>
                 </div>
             </div>
             <div className='flex m-auto'>

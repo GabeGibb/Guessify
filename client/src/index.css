@@ -9,13 +9,20 @@
         background-color: rgb(23 23 23);
         background-size: cover;
     } 
+
+    .greyRing{
+        fill: black;
+        stroke: #3D3E3F;
+        stroke-width: 15px;
+    }
       
-    circle {
+    .greenRing {
         fill: none;
         stroke: var(--spotify-green);
         stroke-width: 15px;
         stroke-dasharray: 1000;
         stroke-dashoffset: 400;
+        
       }
       .triggerRing{
         animation: rotate linear;

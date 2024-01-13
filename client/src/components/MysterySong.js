@@ -55,7 +55,10 @@ function MysterySong({ song, delay }) {
         <div>
             <div className='relative'>
                 <svg height="220" width="220">
-                    <circle ref={ringRef} cx="110" cy="110" r="95" />
+                    <circle className='greyRing' cx="110" cy="110" r="95" />
+                </svg>
+                <svg className='absolute top-0 -rotate-90' height="220" width="220">
+                    <circle className='greenRing' ref={ringRef} cx="110" cy="110" r="95" />
                 </svg>
                 {/* <div className="rounded-[50%] border-solid border-[#1fd15f] border-[14.81px] w-[197px] h-[197px]"></div> */}
                 <button onClick={togglePlay} className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
