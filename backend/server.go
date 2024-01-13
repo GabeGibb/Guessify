@@ -44,13 +44,13 @@ func setupConfig() {
 func main() {
 	setupConfig()
 	e := echo.New()
-
+	fmt.Print(os.Getenv("FRONTEND_URL"))
 	e.Use(session.Middleware(store))
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins:     []string{os.Getenv("FRONTEND_URL")},
 		AllowCredentials: true,
 		AllowMethods:     []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete, http.MethodOptions},
-		AllowHeaders:     []string{"*"},
+		AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
 	}))
 
 	e.GET("/", hello)
@@ -150,7 +150,7 @@ func callback(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to save session: %s", err.Error()))
 	}
 
-	return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("FRONTEND_URL")+"/home")
+	return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("FRONTEND_URL")+"home")
 }
 
 func token(c echo.Context) error {
