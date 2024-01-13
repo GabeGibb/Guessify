@@ -25,6 +25,19 @@ function MysterySong({ song, delay }) {
         // eslint-disable-next-line
     }, [song]);
 
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    });
+
+    function handleKeyDown(event) {
+        if (event.code === 'Space') {
+            togglePlay();
+        }
+    }
+
     function togglePlay() {
         clearTimeout(tId.current);
         setIsPlaying(!isPlaying);
