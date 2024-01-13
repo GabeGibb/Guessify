@@ -134,9 +134,7 @@ func login(c echo.Context) error {
 
 func callback(c echo.Context) error {
 	code := c.QueryParam("code")
-	fmt.Println("Authorization code:", code)
 	token, err := conf.Exchange(context.Background(), code)
-
 	if err != nil {
 		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to exchange token: %s", err.Error()))
 	}
