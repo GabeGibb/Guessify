@@ -8,6 +8,7 @@
         font-family: 'Figtree', sans-serif;
         background-color: rgb(23 23 23);
         background-size: cover;
+
     } 
 
     .greyRing{
@@ -35,6 +36,11 @@
         to {
             stroke-dashoffset: 400;
         }
+      }
+
+      .test{
+        /* max-width: 700px; */
+        min-width: 50%;
       }
 }
 

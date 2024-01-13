@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Song from '../components/Song';
 import MysterySong from '../components/MysterySong';
 import baseUrl from '../services/Url';
+import Popup from '../components/Popup';
 
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
@@ -31,6 +32,7 @@ function GamePage() {
     const [songOptions, setSongOptions] = useState([]);
     const [score, setScore] = useState(0);
     const [delay, setDelay] = useState(5);
+    const [gameOver, setGameOver] = useState(false);
 
     let answer = null;
     const getSongs = async () => {
@@ -141,7 +143,7 @@ function GamePage() {
         if (song === mysterySong) {
             setScore(score + 1); // Increase score by 1
         }else{
-            setScore(0); 
+            setGameOver(true);
         }
         if (allSongs.length >= 4){
             randomizeSongs();
@@ -156,25 +158,28 @@ function GamePage() {
     }
     
     return (
-        <div className='flex flex-col'>
-            <div className=' self-end justify-evenly mx-4'> 
-                <div className='bg-black border rounded w-40'>
-                    <h1 className='text-[#1fd15e] p-2 font-semibold'>score: {score}</h1>
+        <div>
+            {gameOver && <Popup isOpen={true} score={score} song={mysterySong}/>}
+            <div className='flex flex-col'>
+                <div className=' self-end justify-evenly mx-4'> 
+                    <div className='bg-black border rounded w-40'>
+                        <h1 className='text-[#1fd15e] p-2 font-semibold'>score: {score}</h1>
+                    </div>
+                    <div className='bg-black border rounded w-40'>
+                        <h1 className='text-[#1fd15e] p-2 font-semibold'>duration: {delay}</h1>
+                    </div>
                 </div>
-                <div className='bg-black border rounded w-40'>
-                    <h1 className='text-[#1fd15e] p-2 font-semibold'>duration: {delay}</h1>
+                <div className='flex m-auto'>
+                    <MysterySong song={mysterySong} delay={delay}/>
                 </div>
-            </div>
-            <div className='flex m-auto'>
-                <MysterySong song={mysterySong} delay={delay}/>
-            </div>
-            <div>
-                <div className='grid grid-cols-1 md:grid-cols-2 w-7/8 max-w-[1000px] m-auto gap-5 mt-14'>
-                    {songOptions.map((song) => (
-                        <button className='m-auto w-[90%] h-[100px]' onClick={() => handleOptionClick(song)} key={song.id}>
-                            <Song song={song}/>
-                        </button>
-                    ))}
+                <div>
+                    <div className='grid grid-cols-1 md:grid-cols-2 w-7/8 max-w-[1000px] m-auto gap-5 mt-14'>
+                        {songOptions.map((song) => (
+                            <button className='m-auto w-[90%] h-[100px]' onClick={() => handleOptionClick(song)} key={song.id}>
+                                <Song song={song}/>
+                            </button>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>
