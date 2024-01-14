@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-function MysterySong({ song, delay }) {
+function MysterySong({ song, delay}) {
     let localVol = 0.5;
     if (localStorage.getItem('volume') === null) {
         localStorage.setItem('volume', '0.5');
@@ -15,13 +15,17 @@ function MysterySong({ song, delay }) {
     const audioRef = useRef();
     const ringRef = useRef();
 
-    useEffect(() => {
+    function stopSong(){
         if (audioRef.current && volume){
             audioRef.current.volume = volume;
         }
         setIsPlaying(false);
         clearTimeout(tId.current);
         ringRef.current.classList.remove('triggerRing');
+    }
+
+    useEffect(() => {
+        stopSong();
         // eslint-disable-next-line
     }, [song]);
 
@@ -50,6 +54,9 @@ function MysterySong({ song, delay }) {
             ringRef.current.classList.add('triggerRing');
             ringRef.current.style.animationDuration = `${delay}s`;
             tId.current = setTimeout(() => {
+                if (!audioRef.current){
+                    return;
+                }
                 setIsPlaying(false);
                 audioRef.current.pause();
                 audioRef.current.currentTime = 0;

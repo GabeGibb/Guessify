@@ -28,13 +28,21 @@ const Popup = ({ isOpen, score, song }) => {
                             <h1 className='text-5xl  font-bold w-[75%] m-auto'>Nice try!</h1>
                             <div className='w-[75%] m-auto flex flex-col text-2xl'>
                                 <div className='inline-flex gap-2'>
+                                    <h2>Song: </h2><h2>{song.name}</h2>
+                                </div>
+                                <div className='inline-flex gap-2'>
+                                    <h2>Artist: </h2><h2>{song.artists[0].name}</h2>
+                                </div>
+                            </div>
+                            <div className='w-[75%] m-auto flex flex-col text-2xl'>
+                                <div className='inline-flex gap-2'>
                                     <h2>Final Score: </h2><h2>{score}</h2>
                                 </div>
                                 {/* <div className='inline-flex gap-2'>
                                     <h2>Highest Score: </h2><h2>{score}</h2>
                                 </div> */}
                             </div>
-                            <div className='flex m-auto scale-90'>
+                            <div className='flex m-auto scale-90 absolute right-[12.5%] translate-y-16'>
                                 <MysterySong song={song} delay={30}/>
                             </div>
                             <div className='w-[75%] m-auto inline-flex justify-between'>

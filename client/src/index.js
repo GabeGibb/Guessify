@@ -12,21 +12,21 @@ import Navbar from './components/Navbar';
 
 
 export default function App() {
-        return (
-            <div className="text-white">
-                <Verification />
-                <Navbar />
-                <BrowserRouter>
-                    <Routes>
-                        <Route path="/" element={<MainPage />} />
-                        <Route path="/game" element={<GamePage />} />
-                        <Route path="/home" element={<HomePage />} />
-                        {/* <Route path="*" element={<MainPage />} /> ERROR */}
-                    </Routes>
-                </BrowserRouter>
-            </div>
-        );
-    }
+    return (
+        <div className="text-white">
+            <Verification />
+            <Navbar />
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<MainPage />} />
+                    <Route path="/game" element={<GamePage />} />
+                    <Route path="/home" element={<HomePage />} />
+                    {/* <Route path="*" element={<MainPage />} /> ERROR */}
+                </Routes>
+            </BrowserRouter>
+        </div>
+    );
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

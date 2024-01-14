@@ -163,7 +163,7 @@ function GamePage() {
         <div>
             {gameOver && <Popup isOpen={true} score={score} song={mysterySong}/>}
             <div className='flex flex-col'>
-                <div className=' self-end justify-evenly mx-4'> 
+                <div className='self-end justify-evenly mx-4'> 
                     <div className='bg-black border rounded w-40'>
                         <h1 className='text-[#1fd15e] p-2 font-semibold'>score: {score}</h1>
                     </div>
@@ -172,7 +172,7 @@ function GamePage() {
                     </div>
                 </div>
                 <div className='flex m-auto'>
-                    <MysterySong song={mysterySong} delay={delay}/>
+                    {!gameOver && <MysterySong song={mysterySong} delay={delay}/>}
                 </div>
                 <div>
                     <div className='grid grid-cols-1 md:grid-cols-2 w-7/8 max-w-[1000px] m-auto gap-5 mt-14'>
