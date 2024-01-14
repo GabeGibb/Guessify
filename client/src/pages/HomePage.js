@@ -49,7 +49,7 @@ const HomePage = () => {
             </div>
             <div className="flex">
                 {playlists && playlists.map((playlist) => (
-                    <Compilation info={playlist} key={playlist.id}/>
+                    playlist.images.length > 0 && <Compilation info={playlist} key={playlist.id}/>
                 ))}
             </div>
             <div className="flex">
