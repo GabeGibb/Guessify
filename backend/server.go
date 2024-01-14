@@ -44,7 +44,7 @@ func setupConfig() {
 func main() {
 	setupConfig()
 	e := echo.New()
-	fmt.Print(os.Getenv("FRONTEND_URL"))
+
 	e.Use(session.Middleware(store))
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins:     []string{os.Getenv("FRONTEND_URL")},
