@@ -178,7 +178,7 @@ func getArtists(c echo.Context) error {
 }
 
 func getPlaylists(c echo.Context) error {
-	url := "https://api.spotify.com/v1/me/playlists?limit=10"
+	url := "https://api.spotify.com/v1/me/playlists?limit=50"
 	return getSpotify(c, url)
 }
 
