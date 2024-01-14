@@ -144,6 +144,8 @@ function GamePage() {
             setScore(score + 1); // Increase score by 1
         }else{
             setGameOver(true);
+            // setDelay(30);
+            return;
         }
         if (allSongs.length >= 4){
             randomizeSongs();
