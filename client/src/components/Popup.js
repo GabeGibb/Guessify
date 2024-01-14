@@ -29,9 +29,9 @@ const Popup = ({ isOpen, score, song }) => {
                                 <div className='inline-flex gap-2'>
                                     <h2>Final Score: </h2><h2>{score}</h2>
                                 </div>
-                                <div className='inline-flex gap-2'>
+                                {/* <div className='inline-flex gap-2'>
                                     <h2>Highest Score: </h2><h2>{score}</h2>
-                                </div>
+                                </div> */}
                             </div>
                             <div className='w-[75%] m-auto inline-flex justify-between'>
                                 <button className='w-[45%] text-3xl bg-[var(--spotify-green)] px-10 py-5 rounded-2xl' onClick={handleRefresh}>Try Again</button>
