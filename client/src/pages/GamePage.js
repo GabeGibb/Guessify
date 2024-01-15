@@ -18,6 +18,7 @@ if (type === 'artist' && id) {
 
 
 const maxSongs = 100;
+const nextSongDelay = 250;
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -139,20 +140,26 @@ function GamePage() {
         setSongOptions(randomOptions);
     }
 
-    function handleOptionClick(song) {
+    function handleOptionClick(song, e) {
         if (song === mysterySong) {
-            setScore(score + 1); // Increase score by 1
+            e.classList.add('text-[var(--spotify-green)]', 'border-[var(--spotify-green)]');
         }else{
-            setGameOver(true);
-            // setDelay(30);
-            return;
+            e.classList.add('text-[#ff0000]', 'border-[#ff0000]');
         }
-        if (allSongs.length >= 4){
-            randomizeSongs();
-        }else{
-            console.log('add more songs')
-        }
-        // randomizeSongs();
+
+        setTimeout(() => {
+            if (song === mysterySong) {
+                setScore(score + 1);
+            }else{
+                setGameOver(true);
+                return;
+            }
+            if (allSongs.length >= 4){
+                randomizeSongs();
+            }else{
+                console.log('add more songs')
+            }
+        }, nextSongDelay);
     }
 
     if (allSongs.length <= 0) {
@@ -177,7 +184,7 @@ function GamePage() {
                 <div>
                     <div className='grid grid-cols-1 md:grid-cols-2 w-7/8 max-w-[1000px] m-auto gap-5 mt-14'>
                         {songOptions.map((song) => (
-                            <button className='m-auto w-[90%] h-[100px]' onClick={() => handleOptionClick(song)} key={song.id}>
+                            <button className='m-auto w-[90%] h-[100px]' onClick={(e) => handleOptionClick(song, e.target)} key={song.id}>
                                 <Song song={song}/>
                             </button>
                         ))}

@@ -4,6 +4,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@500&family=Nunito+Sans:opsz,wght@6..12,600&display=swap');
 @layer base {
+    :root{
+        --spotify-green: #1DB954;
+    }
+    
     html {
         font-family: 'Figtree', sans-serif;
         background-color: rgb(23 23 23);
@@ -42,8 +46,4 @@
         /* max-width: 700px; */
         min-width: 50%;
       }
-}
-
-:root{
-    --spotify-green: #1DB954;
 }
