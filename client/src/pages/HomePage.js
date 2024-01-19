@@ -2,7 +2,7 @@
 import {React, useState, useEffect} from "react";
 import Compilation from "../components/Compilation";
 import baseUrl from "../services/Url";
-
+import CustomCompilation from "../components/CustomCompilation";
 const topTracksCategories = [
     {name: "Top Tracks Short", type: "all", images: [], id: 1, time_range: "short_term"},
     {name: "Top Tracks Medium", type: "all", images: [], id: 2, time_range: "medium_term"},
@@ -56,6 +56,9 @@ const HomePage = () => {
                 {topTracksCategories.map((topTracks) => (
                     <Compilation info={topTracks} key={topTracks.id}/>
                 ))}
+            </div>
+            <div className="m-auto w-fit">
+                <CustomCompilation />
             </div>
         </div>
     );
