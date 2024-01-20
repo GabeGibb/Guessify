@@ -57,7 +57,7 @@ const HomePage = () => {
                     <Compilation info={topTracks} key={topTracks.id}/>
                 ))}
             </div>
-            <div className="m-auto w-fit">
+            <div>
                 <CustomCompilation />
             </div>
         </div>

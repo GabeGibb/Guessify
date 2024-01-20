@@ -65,6 +65,7 @@ func main() {
 	e.GET("/artist-albums", getArtistAlbums)
 	e.GET("/multiple-artist-albums", getMultipleArtistAlbums)
 	e.GET("/playlist-songs", getPlayistSongs)
+	e.GET("/playlist", getPlaylist)
 
 	e.Logger.Fatal(e.Start(os.Getenv("HOST") + ":1323"))
 }
@@ -200,5 +201,11 @@ func getPlayistSongs(c echo.Context) error {
 	offset := c.QueryParam("offset")
 
 	url := fmt.Sprintf("https://api.spotify.com/v1/playlists/%s/tracks?limit=100&offset=%s", playlistID, offset)
+	return getSpotify(c, url)
+}
+
+func getPlaylist(c echo.Context) error {
+	playlistID := c.QueryParam("id")
+	url := fmt.Sprintf("https://api.spotify.com/v1/playlists/%s", playlistID)
 	return getSpotify(c, url)
 }
