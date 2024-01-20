@@ -115,6 +115,7 @@ function GamePage() {
     function randomizeSongs(){
         let randIndex = Math.floor(Math.random() * allSongs.length);
         let randomSong = allSongs[randIndex];
+        console.log(randomSong)
         setMysterySong(randomSong.track);
         allSongs.splice(randIndex, 1)
         setSongs(allSongs);
@@ -168,7 +169,7 @@ function GamePage() {
     
     return (
         <div>
-            {gameOver && <Popup isOpen={true} score={score} song={mysterySong}/>}
+            {gameOver && <Popup gameOver={gameOver} score={score} song={mysterySong}/>}
             <div className='flex flex-col'>
                 <div className='self-end justify-evenly mx-4'> 
                     <div className='bg-black border rounded w-40'>

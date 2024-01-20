@@ -1,13 +1,29 @@
-import React from 'react';
+import {React, useEffect, useState} from 'react';
 import MysterySong from './MysterySong';
+import baseUrl from '../services/Url';
 
-const Popup = ({ isOpen, score, song }) => {
-    let picUrl = '';
-    if (song.album === undefined){
-        picUrl = '';
-    }else{
-        picUrl = song.album.images[0].url;
+const Popup = ({ gameOver, score, song }) => {
+
+    const [picUrl, setPicUrl] = useState('');
+    async function setArtistPicUrl(id){
+        const response = await fetch(baseUrl + "artist?id=" +id, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const data = await response.json();
+        setPicUrl(data.images[0].url);
     }
+
+    useEffect(() => {
+        if (song.album === undefined){
+            setArtistPicUrl(song.artists[0].id);
+        }else{
+            setPicUrl(song.album.images[0].url);
+        }
+    }, []);
 
     const handleRefresh = () => {
         window.location.reload();
@@ -20,7 +36,6 @@ const Popup = ({ isOpen, score, song }) => {
 
     return (
         <div>
-        {isOpen && 
             <div className='fixed w-full h-full left-0 top-0 bg-black/80 z-20'>
                 <div className='w-full absolute top-[10%] left-1/2 transform -translate-x-1/2'>
                     <div className='relative max-w-[640px] md:m-auto m-10 '>
@@ -57,7 +72,6 @@ const Popup = ({ isOpen, score, song }) => {
                     </div>
                 </div>
             </div>
-        }
         </div>
     );
 };
