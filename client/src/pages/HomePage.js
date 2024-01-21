@@ -2,7 +2,9 @@
 import {React, useState, useEffect} from "react";
 import Compilation from "../components/Compilation";
 import baseUrl from "../services/Url";
-import CustomCompilation from "../components/CustomCompilation";
+import CustomPlaylist from "../components/CustomPlaylist";
+import SearchArtist from "../components/SearchArtist";
+
 const topTracksCategories = [
     {name: "Top Tracks Short", type: "all", images: [], id: 1, time_range: "short_term"},
     {name: "Top Tracks Medium", type: "all", images: [], id: 2, time_range: "medium_term"},
@@ -58,7 +60,8 @@ const HomePage = () => {
                 ))}
             </div>
             <div>
-                <CustomCompilation />
+                <CustomPlaylist />
+                <SearchArtist />
             </div>
         </div>
     );

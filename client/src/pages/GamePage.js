@@ -87,7 +87,11 @@ function GamePage() {
         console.log(songs)
 
         songs = songs.filter((song) => song.track.preview_url !== null);
-        songs = songs.filter((song, index) => songs.findIndex(s => s.track.id === song.track.id) === index);
+        songs = songs.filter((song, index) => {
+            const duplicateIndex = songs.findIndex(s => s.track.id === song.track.id);
+            const duplicateNameIndex = songs.findIndex(s => s.track.name === song.track.name);
+            return index === duplicateIndex && index === duplicateNameIndex;
+        });
         setSongs(songs);
         console.log(songs.length)
 

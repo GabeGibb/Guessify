@@ -2,7 +2,7 @@ import {React, useState} from 'react';
 import baseUrl from '../services/Url';
 import Compilation from './Compilation';
 
-const CustomCompilation = () => {
+const CustomPlaylist = () => {
 
     // function getUrlType(){
     //     const urlParams = new URLSearchParams(window.location.search);
@@ -52,4 +52,4 @@ const CustomCompilation = () => {
     );
 };
 
-export default CustomCompilation;
+export default CustomPlaylist;

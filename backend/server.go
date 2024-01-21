@@ -62,6 +62,7 @@ func main() {
 	e.GET("/top-songs", getTopSongs)
 	e.GET("/top-artists", getArtists)
 	e.GET("/artist", getArtist)
+	e.GET("/search-artist", searchArtist)
 	e.GET("/top-playlists", getPlaylists)
 	e.GET("/artist-albums", getArtistAlbums)
 	e.GET("/multiple-artist-albums", getMultipleArtistAlbums)
@@ -182,6 +183,12 @@ func getArtists(c echo.Context) error {
 func getArtist(c echo.Context) error {
 	artistID := c.QueryParam("id")
 	url := fmt.Sprintf("https://api.spotify.com/v1/artists/%s", artistID)
+	return getSpotify(c, url)
+}
+
+func searchArtist(c echo.Context) error {
+	artistName := c.QueryParam("name")
+	url := fmt.Sprintf("https://api.spotify.com/v1/search?q=%s&type=artist", artistName)
 	return getSpotify(c, url)
 }
 
