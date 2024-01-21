@@ -36,6 +36,31 @@ function GamePage() {
     const [gameOver, setGameOver] = useState(false);
 
     let answer = null;
+    function addTrackWrapperArtist(data){
+        let songs = [];
+        for(let i = 0;  i < data.albums.length; i++){
+            if (data.albums[i] != null){
+                //Stupid process to get songs in a track wrapper
+                let tempSongs = []
+                for (let j = 0; j < data.albums[i].tracks.items.length; j++){
+                    tempSongs.push({track: data.albums[i].tracks.items[j]})
+                }
+                songs.push(...tempSongs);
+            }
+        }
+        return songs;
+    }
+
+    function addTrackWrapperSongs(data){
+        let songs = [];
+        for(let i = 0;  i < data.length; i++){
+            //Stupid process to get songs in a track wrapper
+            songs.push({track: data[i]});
+            
+        }
+        return songs;
+    }
+
     const getSongs = async () => {
         let offset = 0;
         let songs = [];
@@ -47,18 +72,8 @@ function GamePage() {
                     credentials: 'include',
                 });
 
-                const data = await response.json();
+                songs = await response.json();
                 
-                for(let i = 0;  i < data.albums.length; i++){
-                    if (data.albums[i] != null){
-                        //Stupid process to get songs in a track wrapper
-                        let tempSongs = []
-                        for (let j = 0; j < data.albums[i].tracks.items.length; j++){
-                            tempSongs.push({track: data.albums[i].tracks.items[j]})
-                        }
-                        songs.push(...tempSongs);
-                    }
-                }
                 break;
 
             }else{
@@ -68,14 +83,15 @@ function GamePage() {
                 });
     
                 const data = await response.json();
+
                 console.log(songsUrl)
                 console.log(data)
                 songs.push(...data.items);
                 
-                if (offset + 50 > data.total) {
-                    offset += data.total - 50;
+                if (offset + 49 > data.total) {
+                    offset += data.total - 49;
                 } else {
-                    offset += 50;
+                    offset += 49;
                 }
                 
                 count += data.items.length;
@@ -84,8 +100,13 @@ function GamePage() {
                 }
             }
         }
-        console.log(songs)
+        if (type === 'artist') {
+            songs = addTrackWrapperArtist(songs);
+        }else if (type === 'user'){
+            songs = addTrackWrapperSongs(songs);
+        }
 
+        //Filter out songs without audio or duplicates
         songs = songs.filter((song) => song.track.preview_url !== null);
         songs = songs.filter((song, index) => {
             const duplicateIndex = songs.findIndex(s => s.track.id === song.track.id);
@@ -175,7 +196,7 @@ function GamePage() {
         <div>
             {gameOver && <Popup gameOver={gameOver} score={score} song={mysterySong}/>}
             <div className='flex flex-col'>
-                <div className=' self-center justify-evenly mx-4 flex-row' > 
+                <div className='self-center justify-evenly mx-4 flex flex-row gap-4 my-4' > 
                     <div className='bg-black border rounded w-40'>
                         <h1 className='text-[#1fd15e] p-2 font-semibold'>score: {score}</h1>
                     </div>

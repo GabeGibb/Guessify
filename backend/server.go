@@ -171,8 +171,7 @@ func getTopSongs(c echo.Context) error {
 		timeRange = "medium_term"
 	}
 
-	url := fmt.Sprintf("https://api.spotify.com/v1/me/tracks?time_range=%s&limit=50&offset=%s", timeRange, offset)
-
+	url := fmt.Sprintf("https://api.spotify.com/v1/me/top/tracks?time_range=%s&limit=49&offset=%s", timeRange, offset)
 	return getSpotify(c, url)
 }
 

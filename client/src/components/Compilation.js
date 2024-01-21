@@ -22,7 +22,7 @@ const Compilation = ({ info }) => {
         else if (info.type === "playlist"){
             window.location.href = "/game?type=" + info.type + "&id=" + info.id;
         }else{
-            window.location.href = "/game?time_range=" + info.time_range;
+            window.location.href = "/game?time_range=" + info.time_range + "&type=user";
         }
     }
 
