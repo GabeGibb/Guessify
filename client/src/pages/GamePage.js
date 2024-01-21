@@ -188,10 +188,6 @@ function GamePage() {
         }, nextSongDelay);
     }
 
-    if (allSongs.length <= 0) {
-        return <div>Loading...</div>;
-    }
-    
     return (
         <div>
             {gameOver && <Popup gameOver={gameOver} score={score} song={mysterySong}/>}

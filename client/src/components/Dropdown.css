@@ -3,16 +3,22 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     color: black;
-    width: 100%;
+
 }
 
-.p-autocomplete .p-autocomplete-input {
+.p-autocomplete svg{
+    display: none;
+}
+
+.p-autocomplete, .p-autocomplete-input {
     /* styles for the input element */
     width: 100%;
+    /* max-width: 768px; */
+    margin: auto;
     padding: 0.5rem;
     border: 0 none;
     outline: 0 none;
-    
+
 }
 
 .p-autocomplete-panel {
@@ -20,7 +26,6 @@
     background-color: #f9f9f9;
 
 }
-
 
 .p-autocomplete-items {
     /* styles for the list container of suggestions */

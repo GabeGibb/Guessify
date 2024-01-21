@@ -44,7 +44,7 @@ const HomePage = () => {
 
     return (
         <div className="flex flex-col gap-10">
-            <div>
+            <div className="flex flex-col">
                 <CustomPlaylist />
                 <SearchArtist />
             </div>

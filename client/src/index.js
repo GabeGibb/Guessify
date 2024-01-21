@@ -7,13 +7,14 @@ import MainPage from './pages/MainPage';
 import GamePage from './pages/GamePage';
 import HomePage from './pages/HomePage';
 import Navbar from './components/Navbar';
-
+import Loading from './components/Loading';
 
 
 
 export default function App() {
     return (
         <div className="text-white">
+            <Loading />
             <Verification />
             <Navbar />
             <BrowserRouter>
