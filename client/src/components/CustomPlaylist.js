@@ -1,6 +1,8 @@
 import {React, useState} from 'react';
 import baseUrl from '../services/Url';
 import Compilation from './Compilation';
+import { AutoComplete } from 'primereact/autocomplete';
+import './Dropdown.css';
 
 const CustomPlaylist = () => {
 
@@ -46,8 +48,8 @@ const CustomPlaylist = () => {
     return (
         <div className="m-auto w-[90%]">
             <div className='text-center'>Enter a Playlist link</div>
-            <input className='text-black w-full m-auto text-center' onKeyUp={handleKeyDown}></input>
-            {playlist && <Compilation info={playlist} />}
+            <AutoComplete onKeyUp={handleKeyDown} placeholder="Paste a playlist link" />
+            {playlist && <Compilation info={playlist}/>}
         </div>
     );
 };

@@ -27,7 +27,7 @@ const Compilation = ({ info }) => {
     }
 
     return (
-        <div onClick={routeToGame}>
+        <div onClick={routeToGame} className='w-32'>
             <img src={info.images.length > 0 ? info.images[0].url : blankCover} alt={info.name} />
             <p>{info.name}</p>
         </div>

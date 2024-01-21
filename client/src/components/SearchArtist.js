@@ -2,6 +2,7 @@ import {React, useState} from 'react';
 import baseUrl from '../services/Url';
 import Compilation from './Compilation';
 import { AutoComplete } from 'primereact/autocomplete';
+import './Dropdown.css';
 
 const SearchArtist = () => {
 
@@ -15,7 +16,8 @@ const SearchArtist = () => {
             setArtists([]);
             return;
         }
-        let apiUrl = baseUrl + 'search-artist?name=' + autocompleteValue;
+        
+        let apiUrl = baseUrl + 'search-artist?name=' + autocompleteValue.replace(/ /g, '+');
         const response = await fetch(apiUrl, {
             method: 'GET',
             credentials: 'include',
@@ -44,11 +46,10 @@ const SearchArtist = () => {
     return (
         <div className="m-auto w-[90%]">
             <div className='text-center'>Lookup An Artist</div>
-            <div className='text-black'>
-                <AutoComplete value={autocompleteValue} suggestions={artists} completeMethod={searchArtists} onSelect={pickArtist} onChange={(e) => setAutocompleteValue(e.value)} 
-                dropdown={true} placeholder="Search for an artist"
-                />
-            </div>
+
+            <AutoComplete value={autocompleteValue} suggestions={artists} completeMethod={searchArtists} 
+            onSelect={pickArtist} onChange={(e) => setAutocompleteValue(e.value)} placeholder="Search for an artist"/>
+            
             
             {artist && <Compilation info={artist} />}
         </div>

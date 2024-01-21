@@ -1,0 +1,54 @@
+.p-autocomplete {
+    /* styles for the container element */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: black;
+    width: 100%;
+}
+
+.p-autocomplete .p-autocomplete-input {
+    /* styles for the input element */
+    width: 100%;
+    padding: 0.5rem;
+    border: 0 none;
+    outline: 0 none;
+    
+}
+
+.p-autocomplete-panel {
+    /* styles for the overlay panel of suggestions */
+    background-color: #f9f9f9;
+
+}
+
+
+.p-autocomplete-items {
+    /* styles for the list container of suggestions */
+    list-style-type: none;
+    padding: 0;
+}
+
+.p-autocomplete-item {
+    /* styles for a list item of a suggestion */
+    padding: 10px;
+    cursor: pointer;
+}
+
+.p-autocomplete-token {
+    /* styles for an element of a selected item in multiple mode */
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 20px;
+    padding: 5px 10px;
+}
+
+.p-autocomplete-token-icon {
+    /* styles for the close icon element of a selected item in multiple mode */
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.p-autocomplete-token-label {
+    /* styles for the label of a selected item in multiple mode */
+    margin-right: 5px;
+}

@@ -175,7 +175,7 @@ function GamePage() {
         <div>
             {gameOver && <Popup gameOver={gameOver} score={score} song={mysterySong}/>}
             <div className='flex flex-col'>
-                <div className='self-end justify-evenly mx-4'> 
+                <div className=' self-center justify-evenly mx-4 flex-row' > 
                     <div className='bg-black border rounded w-40'>
                         <h1 className='text-[#1fd15e] p-2 font-semibold'>score: {score}</h1>
                     </div>

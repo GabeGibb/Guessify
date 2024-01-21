@@ -43,12 +43,16 @@ const HomePage = () => {
     }, []);
 
     return (
-        <div>
-            <div className="flex">
+        <div className="flex flex-col gap-10">
+            <div>
+                <CustomPlaylist />
+                <SearchArtist />
+            </div>
+            {/* <div className="flex">
                 {artists && artists.map((artist) => (
                     <Compilation info={artist} key={artist.id}/>
                 ))}
-            </div>
+            </div> */}
             <div className="flex">
                 {playlists && playlists.map((playlist) => (
                     playlist.images.length > 0 && <Compilation info={playlist} key={playlist.id}/>
@@ -58,10 +62,6 @@ const HomePage = () => {
                 {topTracksCategories.map((topTracks) => (
                     <Compilation info={topTracks} key={topTracks.id}/>
                 ))}
-            </div>
-            <div>
-                <CustomPlaylist />
-                <SearchArtist />
             </div>
         </div>
     );

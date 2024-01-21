@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/gorilla/sessions"
 	"github.com/joho/godotenv"
@@ -188,6 +189,7 @@ func getArtist(c echo.Context) error {
 
 func searchArtist(c echo.Context) error {
 	artistName := c.QueryParam("name")
+	artistName = strings.ReplaceAll(artistName, " ", "%20") // Replace spaces with %20
 	url := fmt.Sprintf("https://api.spotify.com/v1/search?q=%s&type=artist", artistName)
 	return getSpotify(c, url)
 }
