@@ -2,7 +2,7 @@ import {React, useEffect, useState} from 'react';
 import MysterySong from './MysterySong';
 import baseUrl from '../services/Url';
 
-const Popup = ({ gameOver, score, song }) => {
+const Popup = ({ gameOver, score, song, restartCallback }) => {
 
     const [picUrl, setPicUrl] = useState('');
     async function setArtistPicUrl(id){
@@ -23,10 +23,12 @@ const Popup = ({ gameOver, score, song }) => {
         }else{
             setPicUrl(song.album.images[0].url);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleRefresh = () => {
-        window.location.reload();
+        // window.location.reload();
+        restartCallback();
     };
 
     const handleGoHome = () => {

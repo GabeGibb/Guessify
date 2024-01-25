@@ -28,6 +28,7 @@ function shuffleArray(array) {
 }
 
 function GamePage() {
+    const [permSongs, setPermSongs] = useState([]);
     const [allSongs, setSongs] = useState([]);
     const [mysterySong, setMysterySong] = useState(null);
     const [songOptions, setSongOptions] = useState([]);
@@ -114,6 +115,7 @@ function GamePage() {
             return index === duplicateIndex && index === duplicateNameIndex;
         });
         setSongs(songs);
+        setPermSongs([...songs]);
         console.log(songs.length)
 
     };
@@ -127,6 +129,7 @@ function GamePage() {
 
     useEffect(() => {
         getSongs();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -188,9 +191,22 @@ function GamePage() {
         }, nextSongDelay);
     }
 
+    function restartGame(){
+        setSongs([...permSongs]);
+    }
+
+    useEffect(() => {
+        if (gameOver) {
+            setGameOver(false);
+            setScore(0);
+            randomizeSongs();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [allSongs]);
+
     return (
         <div>
-            {gameOver && <Popup gameOver={gameOver} score={score} song={mysterySong}/>}
+            {gameOver && <Popup gameOver={gameOver} score={score} song={mysterySong} restartCallback={restartGame}/>}
             <div className='flex flex-col'>
                 <div className='self-center justify-evenly mx-4 flex flex-row gap-4 my-4' > 
                     <div className='bg-black border rounded w-40'>
