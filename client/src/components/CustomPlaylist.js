@@ -45,10 +45,14 @@ const CustomPlaylist = () => {
         }
     };
 
+    const handlePaste = (event) => {
+        verifyPlaylist(getPlaylistId(event.clipboardData.getData('Text')));
+    };
+
     return (
         <div className="m-auto w-[90%]">
             <div className='text-center'>Enter a Playlist link</div>
-            <AutoComplete onKeyUp={handleKeyDown} placeholder="Paste a playlist link" />
+            <AutoComplete onKeyUp={handleKeyDown} onPaste={handlePaste} placeholder="Paste a playlist link" />
             {playlist && <Compilation info={playlist}/>}
         </div>
     );
