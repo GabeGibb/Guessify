@@ -2,24 +2,25 @@ import {React, useEffect, useState} from 'react';
 import MysterySong from './MysterySong';
 import baseUrl from '../services/Url';
 
-const Popup = ({ gameOver, score, song, restartCallback }) => {
+const Popup = ({ gameOver, score, song, restartCallback, artistPicUrl='' }) => {
 
     const [picUrl, setPicUrl] = useState('');
-    async function setArtistPicUrl(id){
-        const response = await fetch(baseUrl + "artist?id=" +id, {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        const data = await response.json();
-        setPicUrl(data.images[0].url);
-    }
+    // async function setArtistPicUrl(id){
+    //     const response = await fetch(baseUrl + "artist?id=" +id, {
+    //         method: 'GET',
+    //         credentials: 'include',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //     });
+    //     const data = await response.json();
+    //     setPicUrl(data.images[0].url);
+    // }
 
     useEffect(() => {
         if (song.album === undefined){
-            setArtistPicUrl(song.artists[0].id);
+            // setArtistPicUrl(song.artists[0].id);
+            setPicUrl(artistPicUrl);
         }else{
             setPicUrl(song.album.images[0].url);
         }

@@ -35,6 +35,7 @@ function GamePage() {
     const [score, setScore] = useState(0);
     const [delay, setDelay] = useState(5);
     const [gameOver, setGameOver] = useState(false);
+    const [artistPicUrl, setArtistPicUrl] = useState('');
 
     let answer = null;
     function addTrackWrapperArtist(data){
@@ -61,6 +62,7 @@ function GamePage() {
         }
         return songs;
     }
+    
 
     const getSongs = async () => {
         let offset = 0;
@@ -118,7 +120,23 @@ function GamePage() {
         setPermSongs([...songs]);
         console.log(songs.length)
 
+        if (type === 'artist'){
+            getArtistPicUrl(songs[0].track.artists[0].id);
+        }
+
     };
+
+    async function getArtistPicUrl(id){
+        const response = await fetch(baseUrl + "artist?id=" +id, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        const data = await response.json();
+        setArtistPicUrl(data.images[0].url);
+    }
 
     useEffect(() => {
         if (allSongs.length > 0) {
@@ -131,6 +149,7 @@ function GamePage() {
         getSongs();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
 
     useEffect(() => {
         let curDelay = Math.max(5 - Math.sqrt(score), 0.2)
@@ -206,7 +225,7 @@ function GamePage() {
 
     return (
         <div>
-            {gameOver && <Popup gameOver={gameOver} score={score} song={mysterySong} restartCallback={restartGame}/>}
+            {gameOver && <Popup gameOver={gameOver} score={score} song={mysterySong} restartCallback={restartGame} artistPicUrl={artistPicUrl}/>}
             <div className='flex flex-col'>
                 <div className='self-center justify-evenly mx-4 flex flex-row gap-4 my-4' > 
                     <div className='bg-black border rounded w-40'>
