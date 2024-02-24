@@ -44,7 +44,7 @@ const SearchArtist = () => {
     }
 
     return (
-        <div className="m-auto w-[90%]">
+        <div className="m-auto w-[60%] lg:w-[90%]">
             <div className='text-center'>Lookup An Artist</div>
 
             <AutoComplete value={autocompleteValue} suggestions={artists} completeMethod={searchArtists} 
