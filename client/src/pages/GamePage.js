@@ -235,13 +235,13 @@ function GamePage() {
                         <h1 className='text-[#1fd15e] p-2 font-semibold'>duration: {delay}</h1>
                     </div>
                 </div>
-                <div className='flex m-auto'>
+                <div className='flex m-auto sm:scale-90'>
                     {!gameOver && <MysterySong song={mysterySong} delay={delay}/>}
                 </div>
                 <div>
-                    <div className='grid grid-cols-1 md:grid-cols-2 w-7/8 max-w-[1000px] m-auto gap-5 mt-14'>
+                    <div className='grid sm:grid-cols-1 grid-cols-2 w-7/8 max-w-[1000px] m-auto gap-5 mt-14'>
                         {songOptions.map((song) => (
-                            <button className='m-auto w-[90%] h-[100px]' onClick={(e) => handleOptionClick(song, e.target)} key={song.id}>
+                            <button className='m-auto w-[90%] h-[100px] sm:h-[80px]' onClick={(e) => handleOptionClick(song, e.target)} key={song.id}>
                                 <Song song={song}/>
                             </button>
                         ))}
