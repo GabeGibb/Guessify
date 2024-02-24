@@ -245,9 +245,9 @@ function GamePage() {
                     {!gameOver && <MysterySong song={mysterySong} delay={delay}/>}
                 </div>
                 <div>
-                    <div className='grid sm:grid-cols-1 grid-cols-2 w-7/8 max-w-[1000px] m-auto gap-5 mt-14'>
+                    <div className='grid sm:grid-cols-1 grid-cols-2 w-7/8 max-w-[1000px] m-auto gap-5 mt-8 sm:mt-2'>
                         {songOptions.map((song) => (
-                            <button className='m-auto w-[90%] h-[100px] sm:h-[80px]' onClick={(e) => handleOptionClick(song, e.target)} key={song.id}>
+                            <button className='m-auto w-[90%] h-[100px] sm:h-[75px]' onClick={(e) => handleOptionClick(song, e.target)} key={song.id}>
                                 <Song song={song}/>
                             </button>
                         ))}

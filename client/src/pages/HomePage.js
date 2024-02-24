@@ -60,12 +60,12 @@ const HomePage = () => {
                     <Compilation info={artist} key={artist.id}/>
                 ))}
             </div> */}
-            <div className="flex">
+            <div className="flex m-auto max-w-[95%]">
                 {playlists && playlists.map((playlist) => (
                     playlist.images.length > 0 && <Compilation info={playlist} key={playlist.id}/>
                 ))}
             </div>
-            <div className="flex">
+            <div className="flex m-auto max-w-[95%]">
                 {topTracksCategories.map((topTracks) => (
                     <Compilation info={topTracks} key={topTracks.id}/>
                 ))}
