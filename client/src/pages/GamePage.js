@@ -3,6 +3,7 @@ import Song from '../components/Song';
 import MysterySong from '../components/MysterySong';
 import baseUrl from '../services/Url';
 import Popup from '../components/Popup';
+import Loading from '../components/Loading';
 
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
@@ -223,6 +224,11 @@ function GamePage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allSongs]);
 
+    if (allSongs.length === 0) {
+        return (
+            <Loading />
+        );
+    }
     return (
         <div>
             {gameOver && <Popup gameOver={gameOver} score={score} song={mysterySong} restartCallback={restartGame} artistPicUrl={artistPicUrl}/>}

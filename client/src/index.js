@@ -14,7 +14,6 @@ import Loading from './components/Loading';
 export default function App() {
     return (
         <div className="text-white">
-            <Loading />
             <Verification />
             <Navbar />
             <BrowserRouter>

@@ -1,16 +1,8 @@
 import React, { useState, useEffect } from 'react';
 const Loading = () => {
-    const [isLoading, setIsLoading] = useState(true);
-
-    useEffect(() => {
-        window.addEventListener('load', () => {
-            setIsLoading(false);
-        });
-    }, []);
-
     return (
-        <div className={`loading ${isLoading ? 'show' : 'hide'}`}>
-            {isLoading ? <h2>Loading...</h2> : null}
+        <div className='flex justify-center items-center h-screen'>
+            <div className='animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-[#1fd15e]'></div>
         </div>
     );
 };

@@ -4,6 +4,7 @@ import Compilation from "../components/Compilation";
 import baseUrl from "../services/Url";
 import CustomPlaylist from "../components/CustomPlaylist";
 import SearchArtist from "../components/SearchArtist";
+import Loading from "../components/Loading";
 
 const topTracksCategories = [
     {name: "Top Tracks Short", type: "all", images: [], id: 1, time_range: "short_term"},
@@ -41,6 +42,12 @@ const HomePage = () => {
         getArtists();
         getPlaylists();
     }, []);
+
+    if (playlists === null || artists === null){
+        return (
+            <Loading />
+        );
+    }
 
     return (
         <div className="flex flex-col gap-10">
