@@ -27,6 +27,7 @@
 
 }
 
+
 .p-autocomplete-items {
     /* styles for the list container of suggestions */
     list-style-type: none;
@@ -37,6 +38,14 @@
     /* styles for a list item of a suggestion */
     padding: 10px;
     cursor: pointer;
+}
+
+.p-autocomplete-item:hover {
+    /* styles for a list item of a suggestion */
+    padding: 10px;
+    cursor: pointer;
+    background-color: #B3B3B3;
+
 }
 
 .p-autocomplete-token {

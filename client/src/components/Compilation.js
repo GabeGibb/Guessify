@@ -27,10 +27,10 @@ const Compilation = ({ info }) => {
     }
 
     return (
-        <div onClick={routeToGame} className='w-32'>
-            <img src={info.images.length > 0 ? info.images[0].url : blankCover} alt={info.name} />
-            <p>{info.name}</p>
-        </div>
+        <button onClick={routeToGame} className='w-32 hover:scale-110 transition-transform duration-200'>
+            <img className='rounded-full' src={info.images.length > 0 ? info.images[0].url : blankCover} alt={info.name} />
+            <p className='text-center'>{info.name}</p>
+        </button>
     );
 };
 

@@ -50,25 +50,25 @@ func main() {
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins:     []string{os.Getenv("FRONTEND_URL")},
 		AllowCredentials: true,
-		AllowMethods:     []string{http.MethodGet, http.MethodPut, http.MethodPost, http.MethodDelete, http.MethodOptions},
+		AllowMethods:     []string{echo.GET, echo.PUT, echo.POST, echo.DELETE},
 		AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
 	}))
 
-	e.GET("/", hello)
-	e.GET("/login", login)
-	e.GET("/callback", callback)
-	e.GET("/token", token)
-	e.GET("/verify-user", verifyUser)
+	e.GET("/api", hello)
+	e.GET("/api/login", login)
+	e.GET("/api/callback", callback)
+	e.GET("/api/token", token)
+	e.GET("/api/verify-user", verifyUser)
 
-	e.GET("/top-songs", getTopSongs)
-	e.GET("/top-artists", getArtists)
-	e.GET("/artist", getArtist)
-	e.GET("/search-artist", searchArtist)
-	e.GET("/top-playlists", getPlaylists)
-	e.GET("/artist-albums", getArtistAlbums)
-	e.GET("/multiple-artist-albums", getMultipleArtistAlbums)
-	e.GET("/playlist-songs", getPlayistSongs)
-	e.GET("/playlist", getPlaylist)
+	e.GET("/api/top-songs", getTopSongs)
+	e.GET("/api/top-artists", getArtists)
+	e.GET("/api/artist", getArtist)
+	e.GET("/api/search-artist", searchArtist)
+	e.GET("/api/top-playlists", getPlaylists)
+	e.GET("/api/artist-albums", getArtistAlbums)
+	e.GET("/api/multiple-artist-albums", getMultipleArtistAlbums)
+	e.GET("/api/playlist-songs", getPlayistSongs)
+	e.GET("/api/playlist", getPlaylist)
 
 	e.Logger.Fatal(e.Start(os.Getenv("HOST") + ":1323"))
 }

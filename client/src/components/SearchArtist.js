@@ -25,6 +25,7 @@ const SearchArtist = () => {
                 'Content-Type': 'application/json',
             },
         });
+        
         const data = await response.json();
         setArtistData(data.artists.items);
         let artists = data.artists.items.map((artist) => {

@@ -17,6 +17,7 @@ const HomePage = () => {
     const [playlists, setPlaylists] = useState(null);
 
     async function getArtists(){
+        console.log(baseUrl + 'top-artists')
         const response = await fetch(baseUrl + 'top-artists', {
             method: 'GET',
             credentials: 'include',
@@ -52,20 +53,20 @@ const HomePage = () => {
     return (
         <div className="flex flex-col gap-10">
             <div className="flex flex-col">
-                <CustomPlaylist />
                 <SearchArtist />
+                <CustomPlaylist />
             </div>
             {/* <div className="flex">
                 {artists && artists.map((artist) => (
                     <Compilation info={artist} key={artist.id}/>
                 ))}
             </div> */}
-            <div className="flex m-auto max-w-[95%]">
+            <div className="flex items-start m-auto max-w-[95%]">
                 {playlists && playlists.map((playlist) => (
                     playlist.images.length > 0 && <Compilation info={playlist} key={playlist.id}/>
                 ))}
             </div>
-            <div className="flex m-auto max-w-[95%]">
+            <div className="flex items-start m-auto max-w-[95%]">
                 {topTracksCategories.map((topTracks) => (
                     <Compilation info={topTracks} key={topTracks.id}/>
                 ))}
