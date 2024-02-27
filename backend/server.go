@@ -56,7 +56,7 @@ func main() {
 
 	e.GET("/api", hello)
 	e.GET("/api/login", login)
-	e.GET("/api/callback", callback)
+	e.GET("/callback", callback)
 	e.GET("/api/token", token)
 	e.GET("/api/verify-user", verifyUser)
 
