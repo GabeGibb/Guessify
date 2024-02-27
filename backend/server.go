@@ -37,8 +37,8 @@ func setupConfig() {
 		Path:     "/",
 		MaxAge:   86400, // 1 day
 		HttpOnly: true,
-		// SameSite: http.SameSiteNoneMode,
-		Secure: true,
+		SameSite: http.SameSiteNoneMode,
+		Secure:   true,
 	}
 }
 
