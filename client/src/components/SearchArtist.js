@@ -22,7 +22,7 @@ const SearchArtist = () => {
             method: 'GET',
             credentials: 'include',
             headers: {
-                'Content-Type': 'application/json',
+                'Token': sessionStorage.getItem('token'),
             },
         });
         

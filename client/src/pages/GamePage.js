@@ -74,6 +74,9 @@ function GamePage() {
                 const response = await fetch(songsUrl, {
                     method: 'GET',
                     credentials: 'include',
+                    headers: {
+                        'Token': sessionStorage.getItem('token'),
+                    },
                 });
 
                 songs = await response.json();
@@ -84,6 +87,9 @@ function GamePage() {
                 const response = await fetch(songsUrl + offset, {
                     method: 'GET',
                     credentials: 'include',
+                    headers: {
+                        'Token': sessionStorage.getItem('token'),
+                    },
                 });
     
                 const data = await response.json();
@@ -132,7 +138,7 @@ function GamePage() {
             method: 'GET',
             credentials: 'include',
             headers: {
-                'Content-Type': 'application/json',
+                'Token': sessionStorage.getItem('token'),
             },
         });
         const data = await response.json();

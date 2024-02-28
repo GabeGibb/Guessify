@@ -9,16 +9,17 @@ import (
 	"os"
 	"strings"
 
-	"github.com/gorilla/sessions"
+	// "github.com/gorilla/sessions"
+
 	"github.com/joho/godotenv"
-	"github.com/labstack/echo-contrib/session"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+
+	// "github.com/labstack/echo/v4/middleware"
 	"golang.org/x/oauth2"
 )
 
 var conf = &oauth2.Config{}
-var store = sessions.NewCookieStore([]byte("secret"))
 
 func setupConfig() {
 	godotenv.Load()
@@ -32,32 +33,32 @@ func setupConfig() {
 			TokenURL: "https://accounts.spotify.com/api/token",
 		},
 	}
-	store = sessions.NewCookieStore([]byte("secret"))
-	store.Options = &sessions.Options{
-		Path:     os.Getenv("FRONTEND_URL") + "/api",
-		MaxAge:   86400, // 1 day
-		HttpOnly: true,
-		SameSite: http.SameSiteNoneMode,
-		Secure:   true,
-	}
+	// store = sessions.NewCookieStore([]byte("secret"))
+	// store.Options = &sessions.Options{
+	// 	Path:     "/",
+	// 	MaxAge:   86400, // 1 day
+	// 	HttpOnly: true,
+	// 	SameSite: http.SameSiteNoneMode,
+	// 	Secure:   true,
+	// }
 }
 
 func main() {
 	setupConfig()
 	e := echo.New()
 
-	e.Use(session.Middleware(store))
+	// e.Use(session.Middleware(store))
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins:     []string{os.Getenv("FRONTEND_URL")},
 		AllowCredentials: true,
 		AllowMethods:     []string{echo.GET, echo.PUT, echo.POST, echo.DELETE},
-		AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+		AllowHeaders:     []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, "Token"},
 	}))
 
 	e.GET("/", hello)
 	e.GET("/login", login)
 	e.GET("/callback", callback)
-	e.GET("/token", token)
+	// e.GET("/token", token)
 	e.GET("/verify-user", verifyUser)
 
 	e.GET("/top-songs", getTopSongs)
@@ -78,30 +79,9 @@ func hello(c echo.Context) error {
 }
 
 func getSpotify(c echo.Context, url string) error {
-	// ...
-
-	// Get the Cookie header from the request
-	cookieHeader := c.Request().Header.Get("Cookie")
-
-	// Check if the Cookie header is empty
-	if cookieHeader == "" {
-		return c.String(http.StatusInternalServerError, "No Cookie header in request")
-	}
-
-	// Print the Cookie header for debugging
-	fmt.Println("Cookie header:", cookieHeader)
-
-	// ...
-
-	sess, err := session.Get("session", c)
-	if err != nil {
-		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to get session: %s", err.Error()))
-	}
-
-	token, ok := sess.Values["token"].(string)
-	fmt.Println("GET SPOTIFY", token)
-	if !ok {
-		return c.String(http.StatusInternalServerError, "Failed to get access token from session")
+	token := c.Request().Header.Get("Token")
+	if token == "" {
+		return c.String(http.StatusBadRequest, "Token is missing")
 	}
 
 	// Create a new request
@@ -159,26 +139,7 @@ func callback(c echo.Context) error {
 		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to exchange token: %s", err.Error()))
 	}
 
-	sess, err := session.Get("session", c)
-	if err != nil {
-		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to get session: %s", err.Error()))
-	}
-	fmt.Println("CALLBACK", token.AccessToken)
-	sess.Values["token"] = token.AccessToken
-	fmt.Println("CALLBACK2", sess.Values["token"])
-	err = sess.Save(c.Request(), c.Response())
-	if err != nil {
-		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to save session: %s", err.Error()))
-	}
-
-	return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("FRONTEND_URL")+"/home")
-}
-
-func token(c echo.Context) error {
-	sess, _ := session.Get("session", c)
-	token := sess.Values["token"]
-
-	return c.JSON(http.StatusOK, map[string]string{"access_token": token.(string)})
+	return c.Redirect(http.StatusTemporaryRedirect, os.Getenv("FRONTEND_URL")+"/home?token="+token.AccessToken)
 }
 
 func getTopSongs(c echo.Context) error {

@@ -7,7 +7,7 @@ const Verification = () => {
             method: 'GET',
             credentials: 'include',
             headers: {
-                'Content-Type': 'application/json',
+                'Token': sessionStorage.getItem('token'),
             },
             
         });
@@ -15,13 +15,12 @@ const Verification = () => {
         const data = await response;
         console.log("STATUS", data.status)
         
-        // if (data.status !== 200 && window.location.pathname !== "/") {
-        //     window.location.pathname = "/";
-        // }
-        // else if (data.status === 200 && window.location.pathname === "/") {
-        //     window.location.pathname = "/home";
-        // }
-        console.log(data)
+        if (data.status !== 200 && window.location.pathname !== "/") {
+            window.location.pathname = "/";
+        }
+        else if (data.status === 200 && window.location.pathname === "/") {
+            window.location.pathname = "/home";
+        }
     }
 
     useEffect(() => {

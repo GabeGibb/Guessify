@@ -9,6 +9,9 @@ const Compilation = ({ info }) => {
             const response = await fetch(baseUrl + 'artist-albums?id=' + info.id, {
                 method: 'GET',
                 credentials: 'include',
+                headers: {
+                    'Token': sessionStorage.getItem('token'),
+                },
             });
             const data = await response.json();
             console.log(data)

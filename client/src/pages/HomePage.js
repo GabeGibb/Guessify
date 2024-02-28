@@ -12,6 +12,8 @@ const topTracksCategories = [
     {name: "Top Tracks Long", type: "all", images: [], id: 3, time_range: "long_term"}
 ]
 
+
+
 const HomePage = () => {
     const [artists, setArtists] = useState(null);
     const [playlists, setPlaylists] = useState(null);
@@ -20,7 +22,11 @@ const HomePage = () => {
         console.log(baseUrl + 'top-artists')
         const response = await fetch(baseUrl + 'top-artists', {
             method: 'GET',
+            headers: {
+                'Token': sessionStorage.getItem('token'),
+            },
             credentials: 'include',
+
         });
 
         const data = await response.json();
@@ -31,6 +37,9 @@ const HomePage = () => {
     async function getPlaylists(){
         const response = await fetch(baseUrl + 'top-playlists', {
             method: 'GET',
+            headers: {
+                'Token': sessionStorage.getItem('token'),
+            },
             credentials: 'include',
         });
 
@@ -40,6 +49,11 @@ const HomePage = () => {
     }
 
     useEffect(() => {
+        const queryParams = new URLSearchParams(window.location.search);
+        const token = queryParams.get('token');
+        if (token !== null) {
+            sessionStorage.setItem('token', token);
+        }
         getArtists();
         getPlaylists();
     }, []);
