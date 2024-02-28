@@ -14,7 +14,6 @@ import Loading from './components/Loading';
 export default function App() {
     return (
         <div className="text-white">
-            <Verification />
             <Navbar />
             <BrowserRouter>
                 <Routes>
@@ -24,6 +23,7 @@ export default function App() {
                     {/* <Route path="*" element={<MainPage />} /> ERROR build*/} 
                 </Routes>
             </BrowserRouter>
+            <Verification />
         </div>
     );
 }
