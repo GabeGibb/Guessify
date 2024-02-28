@@ -84,6 +84,7 @@ func getSpotify(c echo.Context, url string) error {
 	}
 
 	token, ok := sess.Values["token"].(string)
+	fmt.Println("GET SPOTIFY", token)
 	if !ok {
 		return c.String(http.StatusInternalServerError, "Failed to get access token from session")
 	}
@@ -147,7 +148,7 @@ func callback(c echo.Context) error {
 	if err != nil {
 		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to get session: %s", err.Error()))
 	}
-
+	fmt.Println("CALLBACK", token.AccessToken)
 	sess.Values["token"] = token.AccessToken
 	err = sess.Save(c.Request(), c.Response())
 	if err != nil {
