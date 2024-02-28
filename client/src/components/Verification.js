@@ -15,12 +15,13 @@ const Verification = () => {
         const data = await response;
         console.log("STATUS", data.status)
         
-        if (data.status !== 200 && window.location.pathname !== "/") {
-            window.location.pathname = "/";
-        }
-        else if (data.status === 200 && window.location.pathname === "/") {
-            window.location.pathname = "/home";
-        }
+        // if (data.status !== 200 && window.location.pathname !== "/") {
+        //     window.location.pathname = "/";
+        // }
+        // else if (data.status === 200 && window.location.pathname === "/") {
+        //     window.location.pathname = "/home";
+        // }
+        console.log(data)
     }
 
     useEffect(() => {
