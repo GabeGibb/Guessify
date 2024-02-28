@@ -60,8 +60,8 @@ const Popup = ({ gameOver, score, song, restartCallback, artistPicUrl='' }) => {
                 <div className='w-full absolute top-[10%] left-1/2 transform -translate-x-1/2'>
                     <div className='relative max-w-[600px] sm:w-[80%] m-auto'>
                         <div className='absolute left-0 top-0 flex flex-col justify-evenly h-full w-full z-10'>
-                            <h1 className='text-4xl sm:text-3xl font-bold w-[75%] m-auto'>Nice try!</h1>
-                            <div className='w-[75%] m-auto flex flex-col text-2xl sm:text-lg'>
+                            <h1 className='text-4xl sm:text-3xl sm:text-center font-bold w-[75%] m-auto'>Nice try!</h1>
+                            <div className='w-[75%] m-auto flex flex-col  text-2xl sm:text-lg'>
                                 <div className='inline-flex gap-2'>
                                     <h2>Song: </h2><h2>{song.name}</h2>
                                 </div>
@@ -77,7 +77,7 @@ const Popup = ({ gameOver, score, song, restartCallback, artistPicUrl='' }) => {
                                 {/* <div className='inline-flex gap-2'>
                                     <h2>Highest Score: </h2><h2>{score}</h2>
                                 </div> */}
-                                <div className='flex md:scale-[70%]'>
+                                <div className='flex sm:scale-[60%] sm:m-auto'>
                                     <MysterySong song={song} delay={30}/>
                                 </div>
                             </div>
