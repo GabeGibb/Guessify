@@ -9,13 +9,10 @@ import (
 	"os"
 	"strings"
 
-	// "github.com/gorilla/sessions"
-
 	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
-	// "github.com/labstack/echo/v4/middleware"
 	"golang.org/x/oauth2"
 )
 
@@ -33,21 +30,13 @@ func setupConfig() {
 			TokenURL: "https://accounts.spotify.com/api/token",
 		},
 	}
-	// store = sessions.NewCookieStore([]byte("secret"))
-	// store.Options = &sessions.Options{
-	// 	Path:     "/",
-	// 	MaxAge:   86400, // 1 day
-	// 	HttpOnly: true,
-	// 	SameSite: http.SameSiteNoneMode,
-	// 	Secure:   true,
-	// }
+
 }
 
 func main() {
 	setupConfig()
 	e := echo.New()
 
-	// e.Use(session.Middleware(store))
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins:     []string{os.Getenv("FRONTEND_URL")},
 		AllowCredentials: true,
@@ -58,7 +47,6 @@ func main() {
 	e.GET("/", hello)
 	e.GET("/login", login)
 	e.GET("/callback", callback)
-	// e.GET("/token", token)
 	e.GET("/verify-user", verifyUser)
 
 	e.GET("/top-songs", getTopSongs)
