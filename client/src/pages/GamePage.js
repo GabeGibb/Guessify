@@ -247,7 +247,7 @@ function GamePage() {
                         <h1 className='text-[#1fd15e] p-2 font-semibold'>duration: {delay}</h1>
                     </div>
                 </div>
-                <div className='flex m-auto sm:scale-90'>
+                <div className='flex m-auto sm:scale-[80%] sm:mt-[-20px]'>
                     {!gameOver && <MysterySong song={mysterySong} delay={delay}/>}
                 </div>
                 <div>
