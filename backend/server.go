@@ -34,7 +34,7 @@ func setupConfig() {
 	}
 	store = sessions.NewCookieStore([]byte("secret"))
 	store.Options = &sessions.Options{
-		Path:     "/",
+		Path:     os.Getenv("FRONTEND_URL"),
 		MaxAge:   86400, // 1 day
 		HttpOnly: true,
 		SameSite: http.SameSiteNoneMode,
