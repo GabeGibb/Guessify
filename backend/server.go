@@ -78,6 +78,21 @@ func hello(c echo.Context) error {
 }
 
 func getSpotify(c echo.Context, url string) error {
+	// ...
+
+	// Get the Cookie header from the request
+	cookieHeader := c.Request().Header.Get("Cookie")
+
+	// Check if the Cookie header is empty
+	if cookieHeader == "" {
+		return c.String(http.StatusInternalServerError, "No Cookie header in request")
+	}
+
+	// Print the Cookie header for debugging
+	fmt.Println("Cookie header:", cookieHeader)
+
+	// ...
+
 	sess, err := session.Get("session", c)
 	if err != nil {
 		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to get session: %s", err.Error()))
@@ -150,6 +165,7 @@ func callback(c echo.Context) error {
 	}
 	fmt.Println("CALLBACK", token.AccessToken)
 	sess.Values["token"] = token.AccessToken
+	fmt.Println("CALLBACK2", sess.Values["token"])
 	err = sess.Save(c.Request(), c.Response())
 	if err != nil {
 		return c.String(http.StatusInternalServerError, fmt.Sprintf("Failed to save session: %s", err.Error()))
