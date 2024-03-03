@@ -46,4 +46,11 @@
         /* max-width: 700px; */
         min-width: 50%;
       }
+    .custom-hover{
+        transition: all 0.2s;
+    }
+    .custom-hover:hover{
+        transform: scale(1.05);
+        filter: brightness(1.05);
+    }
 }

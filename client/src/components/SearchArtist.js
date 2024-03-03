@@ -51,8 +51,12 @@ const SearchArtist = () => {
             <AutoComplete value={autocompleteValue} suggestions={artists} completeMethod={searchArtists} 
             onSelect={pickArtist} onChange={(e) => setAutocompleteValue(e.value)} placeholder="Search for an artist"/>
             
-            
-            {artist && <Compilation info={artist} />}
+        
+            {artist && 
+            <div className='w-fit m-auto'>
+                <Compilation info={artist} />
+            </div>
+            }
         </div>
     );
 };

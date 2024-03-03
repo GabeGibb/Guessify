@@ -66,8 +66,8 @@ const Popup = ({ gameOver, score, song, restartCallback, artistPicUrl='' }) => {
                                 </div>
                             </div>
                             <div className='w-[80%] m-auto inline-flex sm:flex-col sm:space-y-2 justify-between'>
-                                <button className='w-[45%] sm:w-[100%] sm:m-auto text-2xl sm:text-xl bg-[var(--spotify-green)] px-10 py-5 sm:py-3 rounded-2xl' onClick={handleRefresh}>Try Again</button>
-                                <button className='w-[45%] sm:w-[100%] sm:m-auto text-2xl sm:text-xl bg-[#3D3E3F] px-10 py-5 sm:py-3 rounded-2xl' onClick={handleGoHome}>Home</button>
+                                <button className='w-[45%] sm:w-[100%] sm:m-auto text-2xl sm:text-xl bg-[var(--spotify-green)] px-10 py-5 sm:py-3 rounded-2xl custom-hover' onClick={handleRefresh}>Try Again</button>
+                                <button className='w-[45%] sm:w-[100%] sm:m-auto text-2xl sm:text-xl bg-[#3D3E3F] px-10 py-5 sm:py-3 rounded-2xl custom-hover' onClick={handleGoHome}>Home</button>
                             </div>
                         </div>
                         <div className='absolute left-0 top-0 z-[-1] w-full h-full bg-[#3D3E3F] border-white rounded-3xl border'>

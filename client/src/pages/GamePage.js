@@ -240,10 +240,10 @@ function GamePage() {
             {gameOver && <Popup gameOver={gameOver} score={score} song={mysterySong} restartCallback={restartGame} artistPicUrl={artistPicUrl}/>}
             <div className='flex flex-col'>
                 <div className='self-center justify-evenly mx-4 flex flex-row gap-4 my-4' > 
-                    <div className='bg-black border rounded w-40'>
+                    <div className='bg-black border rounded w-40 sm:w-32'>
                         <h1 className='text-[#1fd15e] p-2 font-semibold'>score: {score}</h1>
                     </div>
-                    <div className='bg-black border rounded w-40'>
+                    <div className='bg-black border rounded w-40 sm:w-32'>
                         <h1 className='text-[#1fd15e] p-2 font-semibold'>duration: {delay}</h1>
                     </div>
                 </div>
@@ -251,7 +251,7 @@ function GamePage() {
                     {!gameOver && <MysterySong song={mysterySong} delay={delay}/>}
                 </div>
                 <div>
-                    <div className='grid sm:grid-cols-1 grid-cols-2 w-7/8 max-w-[1000px] m-auto gap-5 mt-8 sm:mt-2'>
+                    <div className='grid sm:grid-cols-1 grid-cols-2 w-7/8 max-w-[1000px] m-auto gap-5 mt-8 sm:mt-[-5px]'>
                         {songOptions.map((song) => (
                             <button className='m-auto w-[90%] h-[100px] sm:h-[75px]' onClick={(e) => handleOptionClick(song, e.target)} key={song.id}>
                                 <Song song={song}/>

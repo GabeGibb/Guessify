@@ -83,7 +83,7 @@ function MysterySong({ song, delay}) {
                 {/* <div className="rounded-[50%] border-solid border-[#1fd15f] border-[14.81px] w-[197px] h-[197px]"></div> */}
                 <button onClick={togglePlay} className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
                     {song && <audio ref={audioRef} src={song.preview_url} onEnded={() => setIsPlaying(false)}/>}
-                    <svg className="rounded-none w-[86.64px] h-[87.26px] overflow-visible">             
+                    <svg className="rounded-none w-[86.64px] h-[87.26px] overflow-visible custom-hover">             
                         <path d="M81.6733 41.5526C83.9975 42.9341 83.9443 46.317 81.5778 47.6247L27.7034 77.3942C25.3493 78.695 22.4688 76.965 22.5111 74.2757L23.474 13.0571C23.5163 10.3679 26.4498 8.72929 28.7618 10.1035L81.6733 41.5526Z" fill="white" stroke="black"/>
                     </svg>
                 </button>

@@ -30,8 +30,8 @@ const Compilation = ({ info }) => {
     }
 
     return (
-        <button onClick={routeToGame} className='w-32 hover:scale-110 transition-transform duration-200'>
-            <img className='rounded-full' src={info.images.length > 0 ? info.images[0].url : blankCover} alt={info.name} />
+        <button onClick={routeToGame} className='w-32 hover:scale-110 transition-transform duration-175'>
+            <img className='rounded-full object-cover aspect-square' src={info.images.length > 0 ? info.images[0].url : blankCover} alt={info.name} />
             <p className='text-center'>{info.name}</p>
         </button>
     );
